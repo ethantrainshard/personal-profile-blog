@@ -419,6 +419,35 @@ button {
 }
 
 /* ============================================
+   HERO GLOW ANIMATION
+   ============================================ */
+
+@keyframes hero-glow-pulse {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.08);
+  }
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, var(--color-link) 0%, transparent 70%);
+  opacity: 0.08;
+  animation: hero-glow-pulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
    GRID LAYOUTS
    ============================================ */
 
