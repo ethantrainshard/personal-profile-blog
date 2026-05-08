@@ -31,14 +31,11 @@ On the projects page, the most impressive project could be featured larger (a he
 
 **a) ~~Active nav link highlighting~~** ✅ Done — `<script client:load>` in `Nav.astro` adds `.active` class when the current path matches a nav link, styled with ice-blue `var(--color-link)`.
 
-**b) Smooth scroll to top on navigation**
-Clicking a nav link should smoothly scroll to the top of the page instead of jumping.
+**b) ~~Smooth scroll to top on navigation~~** ✅ Done — `html { scroll-behavior: smooth }` in `global.css` handles all anchor-link scrolling. Nav links also trigger `window.scrollTo({ top: 0, behavior: 'smooth' })` on click via `<script client:load>` in `Nav.astro`.
 
-**c) Add a "Back to top" button**
-On pages with long content (blog posts, experience), a floating back-to-top button improves UX.
+**c) ~~Add a "Back to top" button~~** ✅ Done — New `ScrollToTop.astro` component renders a fixed button (bottom-right) that appears after scrolling 300px with a fade+slide animation. Clicking it smooth-scrolls to top. Imported in `Layout.astro`.
 
-**d) Improve mobile nav UX**
-The hamburger menu closes the menu when a link is clicked, but there's no animation. A slide-down animation with a subtle backdrop would feel more polished.
+**d) ~~Improve mobile nav UX~~** ✅ Done — Replaced `display: none` / `display: flex` toggle with `max-height` + `opacity` slide-down animation in `global.css`. Added semi-transparent backdrop overlay (closes on click). Hamburger lines animate to an X via CSS transforms. Menu auto-closes when a nav link is clicked.
 
 ---
 
