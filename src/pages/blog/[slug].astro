@@ -1,22 +1,33 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { extractToc, type TocItem } from '../../lib/toc';
+import fs from 'fs';
+import path from 'path';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   const results = await Promise.all(
     posts.map(async (post) => {
       const { Content } = await post.render();
+      const rawPath = path.join(process.cwd(), 'src', 'content', 'blog', `${post.slug}.mdx`);
+      let rawContent = '';
+      try {
+        rawContent = fs.readFileSync(rawPath, 'utf-8');
+      } catch {
+        rawContent = '';
+      }
+      const toc = extractToc(rawContent);
       return {
         params: { slug: post.slug },
-        props: { post, Content },
+        props: { post, Content, toc },
       };
     })
   );
   return results;
 }
 
-const { post, Content } = Astro.props;
+const { post, Content, toc } = Astro.props;
 const { title, date, updated, category } = post.data;
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -39,21 +50,55 @@ const formattedUpdated = updated
     <div class="container">
       <a href="/blog" class="nav-link" style="margin-bottom: var(--spacing-xl); display: inline-block;">← Back to Blog</a>
 
-      <div style="max-width: 720px; margin: 0 auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
-          <span class="tag">{category}</span>
-          <span class="date-pill">
-            {formattedUpdated
-              ? <>Updated {formattedUpdated}</>
-              : formattedDate}
-          </span>
+      <div class="post-layout">
+        <div class="post-main">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+            <span class="tag">{category}</span>
+            <span class="date-pill">
+              {formattedUpdated
+                ? <>Updated {formattedUpdated}</>
+                : formattedDate}
+            </span>
+          </div>
+
+          <div class="section-heading"><h1 class="display-lg">{title}</h1></div>
+
+          <article class="post-content">
+            <Content />
+          </article>
         </div>
 
-        <div class="section-heading"><h1 class="display-lg">{title}</h1></div>
+        {toc.length > 0 && (
+          <>
+            <div class="post-toc-desktop">
+              <nav>
+                <h3 class="post-toc-title">Table of Contents</h3>
+                <ul>
+                  {toc.map(item => (
+                    <li class:list={['toc-item', `toc-item--${item.level}`]}>
+                      <a href={`#${item.id}`}>{item.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
 
-        <article class="post-content">
-          <Content />
-        </article>
+            <div class="post-toc-mobile">
+              <details>
+                <summary>Table of Contents</summary>
+                <nav>
+                  <ul>
+                    {toc.map(item => (
+                      <li class:list={['toc-item', `toc-item--${item.level}`]}>
+                        <a href={`#${item.id}`}>{item.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </details>
+            </div>
+          </>
+        )}
       </div>
     </div>
   </section>

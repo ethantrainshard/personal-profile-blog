@@ -835,6 +835,115 @@ button {
 }
 
 /* ============================================
+   POST LAYOUT & TABLE OF CONTENTS
+   ============================================ */
+
+.post-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xxl);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.post-toc-desktop {
+  display: none;
+}
+
+.post-toc-mobile {
+  display: block;
+}
+
+.post-toc-mobile details {
+  border: 1px solid var(--color-hairline);
+  background-color: var(--color-surface-soft);
+}
+
+.post-toc-mobile summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+  color: var(--color-body-strong);
+  padding: var(--spacing-md);
+  transition: color 0.2s ease-out;
+}
+
+.post-toc-mobile summary:hover {
+  color: var(--color-link);
+}
+
+.post-toc-mobile nav ul {
+  list-style: none;
+  padding: 0 var(--spacing-md) var(--spacing-md);
+  margin: 0;
+}
+
+.post-toc-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.toc-item {
+  margin-bottom: var(--spacing-xs);
+}
+
+.toc-item a {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  transition: color 0.2s ease-out;
+  display: block;
+  padding: 0.25em 0;
+}
+
+.toc-item a:hover {
+  color: var(--color-link);
+}
+
+.toc-item--h3 {
+  padding-left: var(--spacing-md);
+}
+
+@media (min-width: 1024px) {
+  .post-layout {
+    grid-template-columns: 1fr 200px;
+    align-items: start;
+  }
+
+  .post-toc-desktop {
+    display: block;
+    position: sticky;
+    top: 80px;
+  }
+
+  .post-toc-desktop nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-toc-desktop .toc-item a {
+    font-size: 0.75rem;
+  }
+
+  .post-toc-desktop .toc-item--h3 {
+    padding-left: var(--spacing-md);
+  }
+
+  .post-toc-mobile {
+    display: none;
+  }
+}
+
+/* ============================================
    PROJECT DETAIL
    ============================================ */
 
