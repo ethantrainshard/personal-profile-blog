@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Blog — Ethan Goh">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <h1 class="display-lg" style="margin-bottom: var(--spacing-xs);">Blog</h1>
+      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl); color: var(--color-link);">Thoughts on Security, Infrastructure & Development</p>
+
+      <div class="grid-2">
+        {sorted.map(post => (
+          <BlogCard
+            title={post.data.title}
+            excerpt={post.data.excerpt}
+            slug={post.slug}
+            date={post.data.date}
+            category={post.data.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

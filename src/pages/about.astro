@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { socialLinks, skills } from '../config';
+---
+
+<Layout title="About — Ethan Goh">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <h1 class="display-lg" style="margin-bottom: var(--spacing-xs);">About</h1>
+      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl);">Background & Expertise</p>
+
+      <div style="max-width: 800px;">
+        <p class="body-lg" style="margin-bottom: var(--spacing-lg); color: var(--color-body-strong);">
+          I'm a software developer, security engineer, and infrastructure architect with over 8 years of experience building secure, scalable systems. My career spans from hands-on development to leading security initiatives and designing cloud-native infrastructure.
+        </p>
+        <p class="body-lg" style="margin-bottom: var(--spacing-lg); color: var(--color-body-strong);">
+          I believe in security-first development — the idea that security shouldn't be an afterthought but a foundational principle woven into every line of code and every infrastructure decision. My experience across development, security, and operations gives me a unique perspective on building resilient systems.
+        </p>
+        <p class="body-lg" style="margin-bottom: var(--spacing-xxl); color: var(--color-body-strong);">
+          When I'm not coding or configuring infrastructure, I write about cybersecurity, share lessons learned from production incidents, and contribute to open-source security tools.
+        </p>
+
+       {Object.values(skills).map(category => (
+          <>
+            <h2 class="title-md" style={`margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(${category.colorVar});`}>{category.label}</h2>
+            <div class="skill-list" style="margin-bottom: var(--spacing-xxl);">
+              {category.tags.map(tag => (
+                <span class="skill-tag" style={`border-color: var(${category.colorVar}); color: var(${category.colorVar});`}>{tag}</span>
+              ))}
+            </div>
+          </>
+        ))}
+
+        <h2 class="title-md" style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-warning);">Cybersecurity</h2>
+        <div class="skill-list" style="margin-bottom: var(--spacing-xxl);">
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Penetration Testing</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">OWASP Top 10</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Burp Suite</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Threat Modeling</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Security Auditing</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Incident Response</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">SIEM</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Network Security</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">Cryptography</span>
+          <span class="skill-tag" style="border-color: var(--color-warning); color: var(--color-warning);">OAuth2 / JWT</span>
+        </div>
+
+        <h2 class="title-md" style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-success);">Infrastructure & DevOps</h2>
+        <div class="skill-list" style="margin-bottom: var(--spacing-xxl);">
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">AWS</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Azure</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Terraform</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Kubernetes</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Docker</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">CI/CD</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Ansible</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Linux</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Prometheus</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">Grafana</span>
+          <span class="skill-tag" style="border-color: var(--color-success); color: var(--color-success);">IaC</span>
+        </div>
+
+        <h2 class="title-md" style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-hairline);">Get In Touch</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-md);">
+          {socialLinks.map((link, i) => (
+            <Button
+              text={link.label}
+              href={link.href}
+              target={link.target as string}
+              rel={link.rel as string}
+              variant={i === 0 ? 'default' : 'secondary'}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

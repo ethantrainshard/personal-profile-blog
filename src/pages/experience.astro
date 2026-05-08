@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TimelineEntry from '../components/TimelineEntry.astro';
+---
+
+<Layout title="Experience — Ethan Goh">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <h1 class="display-lg" style="margin-bottom: var(--spacing-xs);">Experience</h1>
+      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl);">Professional Journey</p>
+
+      <div class="timeline">
+        <TimelineEntry
+          date="2022 — Present"
+          title="Senior Security Engineer"
+          company="TechCorp International"
+          location="Singapore"
+          description="Leading application security initiatives across the organization. Designing and implementing security controls for cloud-native microservices architecture. Conducting penetration tests and red team assessments. Mentoring junior engineers on secure coding practices and threat modeling."
+          technologies={['Python', 'Go', 'AWS', 'Terraform', 'Kubernetes', 'OWASP', 'Burp Suite']}
+          techColors={['var(--color-link)', 'var(--color-link)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-warning)']}
+        />
+
+        <TimelineEntry
+          date="2019 — 2022"
+          title="DevOps Engineer"
+          company="CloudScale Solutions"
+          location="Remote"
+          description="Designed and maintained CI/CD pipelines serving 50+ microservices. Migrated legacy infrastructure to cloud-native architecture using Kubernetes and Terraform. Implemented comprehensive monitoring and alerting systems. Reduced deployment time by 75% and improved system reliability to 99.95% uptime."
+          technologies={['Docker', 'Kubernetes', 'Jenkins', 'Ansible', 'Azure', 'Prometheus', 'Grafana']}
+          techColors={['var(--color-success)', 'var(--color-success)', 'var(--color-body)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)']}
+        />
+
+        <TimelineEntry
+          date="2017 — 2019"
+          title="Software Developer"
+          company="DataStream Technologies"
+          location="Singapore"
+          description="Developed full-stack web applications serving 100K+ users. Built RESTful APIs and real-time data processing pipelines. Implemented security features including OAuth2, JWT authentication, and data encryption. Collaborated with cross-functional teams in an Agile environment."
+          technologies={['JavaScript', 'TypeScript', 'Node.js', 'React', 'PostgreSQL', 'Redis']}
+          techColors={['var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)']}
+        />
+
+        <TimelineEntry
+          date="2015 — 2017"
+          title="Junior Systems Administrator"
+          company="NetGuard Systems"
+          location="Singapore"
+          description="Managed Linux and Windows server infrastructure for enterprise clients. Automated routine system administration tasks using shell scripting and Python. Assisted in security audits and compliance implementations. Maintained 99.9% infrastructure availability."
+          technologies={['Linux', 'Bash', 'Python', 'Nginx', 'iptables', 'Wireshark']}
+          techColors={['var(--color-success)', 'var(--color-body)', 'var(--color-link)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-warning)']}
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

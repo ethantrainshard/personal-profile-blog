@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type Entry = CollectionEntry<'projects'>;
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: project.data,
+  }));
+}
+
+const { title, description, overview, features, techStack, techColors, role, date, githubUrl, liveUrl } = Astro.props;
+---
+
+<Layout title={`${title} — Ethan Goh`}>
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <a href="/projects" class="nav-link" style="margin-bottom: var(--spacing-xl); display: inline-block;">← Back to Projects</a>
+
+      <h1 class="display-lg" style="margin-bottom: var(--spacing-xs);">{title}</h1>
+      <div style="display: flex; gap: var(--spacing-xl); flex-wrap: wrap; margin-bottom: var(--spacing-xxl);">
+        <p class="caption-uppercase">{date}</p>
+      </div>
+
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <p class="caption-uppercase project-meta-label">Role</p>
+          <p class="body-md">{role}</p>
+        </div>
+        <div class="project-meta-item">
+          <p class="caption-uppercase project-meta-label">Tech Stack</p>
+          <div class="skill-list">
+            {techStack.map((tech, i) => (
+              <span class="skill-tag" style={techColors && techColors[i] ? `border-color: ${techColors[i]}; color: ${techColors[i]};` : ''}>{tech}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="project-content">
+        <h2>Overview</h2>
+        <div dangerouslySetInnerHTML={{ __html: overview.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />') }} />
+
+        <h2>Key Features</h2>
+        <ul>
+          {features.map(feature => (
+            <li class="body-md" style="margin-bottom: var(--spacing-sm);">{feature}</li>
+          ))}
+        </ul>
+
+        <h2>Description</h2>
+        <div dangerouslySetInnerHTML={{ __html: description.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />') }} />
+
+        <div class="project-links">
+          {githubUrl && <Button text="View Source" href={githubUrl} target="_blank" rel="noopener noreferrer" />}
+          {liveUrl && <Button text="Live Demo" href={liveUrl} target="_blank" rel="noopener noreferrer" variant="secondary" />}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,26 @@
+---
+title: 'VaultGuard'
+description: 'A zero-trust secrets management platform for microservices with automatic rotation and audit logging.'
+date: '2024'
+techStack: ['Go', 'Terraform', 'Vault', 'Kubernetes']
+techColors: ['var(--color-link)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-success)']
+overview: 'Managing secrets in a microservices architecture presents unique challenges. Each service needs access to credentials, but hardcoding secrets is a security anti-pattern. Environment variables can leak through logs. Traditional solutions often lack the granular access control needed for complex, multi-team organizations.\n\nVaultGuard was built to solve these problems by implementing a zero-trust model where every service must authenticate before accessing any secret, and every access is logged for audit purposes.'
+features: [
+  'Automatic secret rotation on configurable schedules',
+  'Fine-grained access policies per service and environment',
+  'End-to-end encryption with mTLS',
+  'Kubernetes operator for seamless secret injection',
+  'Comprehensive audit logging with Slack/PagerDuty integration',
+  'Secret versioning and rollback capabilities',
+  'Dynamic database credentials that expire automatically',
+]
+role: 'Lead Engineer — designed architecture, implemented core secrets engine, and built the Kubernetes operator'
+githubUrl: 'https://github.com/ethangoh/vaultguard'
+liveUrl: null
+---
+
+VaultGuard is a zero-trust secrets management platform designed for modern microservices architectures. It provides centralized secrets storage with automatic rotation, fine-grained access control, and comprehensive audit logging.
+
+The platform addresses the growing challenge of managing sensitive credentials (API keys, database passwords, certificates) across distributed systems without exposing them in code repositories or environment variables.
+
+Key architectural decisions include using HashiCorp Vault as the backing store, implementing mTLS for service-to-service authentication, and building a custom Kubernetes operator for automatic secret injection into pods.

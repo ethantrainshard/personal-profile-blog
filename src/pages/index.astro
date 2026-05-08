@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { heroSubtitle, focusAreas } from '../config';
+---
+
+<Layout title="Ethan Goh — Software Developer, Security Engineer, Infrastructure Architect">
+  <section class="hero-band" style="background: linear-gradient(135deg, #0a0a0a 0%, #000000 50%, #050505 100%);">
+    <div class="hero-band-content">
+      <h1 class="display-xl">Ethan Goh</h1>
+      <p class="caption-uppercase" style="margin-top: var(--spacing-md); color: var(--color-link);">{heroSubtitle}</p>
+      <p class="body-lg" style="margin-top: var(--spacing-xl); max-width: 600px; margin-left: auto; margin-right: auto; color: var(--color-body-strong);">
+        Building secure, scalable systems from code to cloud. Specializing in software development, cybersecurity, and infrastructure deployment.
+      </p>
+      <div style="display: flex; justify-content: center; gap: var(--spacing-md); margin-top: var(--spacing-xxl); flex-wrap: wrap;">
+        <Button text="View Projects" href="/projects" />
+        <Button text="Read Blog" href="/blog" variant="secondary" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-3">
+        {focusAreas.map((area, i) => (
+          <div>
+            <h2 class="title-md" style={`margin-bottom: var(--spacing-md); color: var(--${['color-link', 'color-warning', 'color-success'][i]});`}>{area}</h2>
+            <p class="body-md">{['Full-stack application development with modern frameworks, clean architecture, and test-driven practices.', 'Application security, penetration testing, vulnerability assessment, and security-first development methodologies.', 'Cloud architecture, CI/CD pipelines, containerization, and infrastructure as code for reliable deployments.'][i]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

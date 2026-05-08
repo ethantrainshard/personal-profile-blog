@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="Projects — Ethan Goh">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <h1 class="display-lg" style="margin-bottom: var(--spacing-xs);">Projects</h1>
+      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl); color: var(--color-link);">Selected Work</p>
+
+      <div class="grid-2">
+        {projects.map(project => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            techStack={project.data.techStack}
+            slug={project.slug}
+            date={project.data.date}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

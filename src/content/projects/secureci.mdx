@@ -1,0 +1,24 @@
+---
+title: 'SecureCI'
+description: 'Security-hardened CI/CD pipeline framework with automated vulnerability scanning and compliance checks.'
+date: '2022'
+techStack: ['Python', 'Docker', 'GitHub Actions', 'Trivy']
+techColors: ['var(--color-link)', 'var(--color-success)', 'var(--color-body)', 'var(--color-warning)']
+overview: 'Most CI/CD pipelines focus solely on speed and reliability, treating security as a separate concern that happens after deployment. This approach creates a false sense of security — vulnerabilities are found too late in the process when they\'re most expensive to fix.\n\nSecureCI embeds security into every stage of the pipeline: code analysis on commit, dependency scanning on build, container image scanning on push, and compliance verification before deployment. Each stage can be configured to block the pipeline on critical findings.'
+features: [
+  'Pre-built security stages for SAST, DAST, and SCA',
+  'Container image vulnerability scanning with Trivy integration',
+  'Software bill of materials (SBOM) generation',
+  'License compliance checking against approved policies',
+  'Infrastructure-as-code scanning with Checkov',
+  'Compliance reporting for SOC 2, ISO 27001, and PCI DSS',
+  'Pipeline templates for common tech stacks',
+]
+role: 'Creator — designed the framework architecture, built core scanning modules, and created pipeline templates'
+githubUrl: 'https://github.com/ethangoh/secureci'
+liveUrl: null
+---
+
+SecureCI is a security-hardened CI/CD pipeline framework that integrates automated vulnerability scanning, license compliance checking, and regulatory compliance verification into every build. It transforms CI/CD from a delivery mechanism into a security gate.
+
+The framework provides pre-built pipeline templates for common technologies, custom security stage definitions, and integration with popular vulnerability databases and compliance frameworks.

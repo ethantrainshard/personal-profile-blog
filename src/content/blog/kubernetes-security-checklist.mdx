@@ -1,0 +1,104 @@
+---
+title: 'Kubernetes Security Posture: A Practical Checklist'
+excerpt: 'Essential security configurations for Kubernetes clusters covering RBAC, network policies, pod security, and runtime protection.'
+date: 2024-05-03
+category: 'Security'
+---
+
+Kubernetes is powerful but complex, and its default security configuration is intentionally permissive. This checklist covers the essential security configurations for production Kubernetes clusters, organized by area of concern.
+
+These are the configurations I implement on every production cluster, drawn from real-world incidents and security audit findings.
+
+## Cluster Hardening
+
+### API Server
+
+- Disable anonymous access (--anonymous-auth=false)
+- Enable audit logging with backend storage
+- Restrict API server access to known CIDR ranges
+- Use RBAC with least-privilege principles
+- Enable encryption at rest for etcd secrets
+
+### Control Plane
+
+- Run control plane components on isolated infrastructure
+- Enable pod security admission at the namespace level
+- Use network policies to restrict control plane communication
+- Regularly update to the latest stable Kubernetes version
+- Disable unused API resources and extensions
+
+## Pod Security
+
+### Security Contexts
+
+Every pod should specify:
+
+- runAsNonRoot: true — prevent containers from running as root
+- readOnlyRootFilesystem: true — prevent filesystem modifications
+- allowPrivilegeEscalation: false — prevent privilege escalation
+- runAsUser: set to a non-zero UID
+- capabilities drop: ['ALL'] — drop all Linux capabilities
+
+### Service Accounts
+
+- Use automountServiceAccountToken: false unless explicitly needed
+- Create dedicated service accounts per workload
+- Apply RBAC roles only to specific service accounts
+- Rotate service account tokens regularly
+
+## Network Security
+
+### Network Policies
+
+- Default deny all ingress and egress traffic
+- Explicitly allow only required communication paths
+- Use namespace isolation for different environments
+- Restrict access to internal services from external sources
+
+### Ingress Controller
+
+- Use TLS termination at the ingress layer
+- Enforce HTTPS with HSTS headers
+- Configure rate limiting on the ingress controller
+- Use WAF rules for common attack patterns
+
+## Runtime Security
+
+### Image Security
+
+- Scan images for vulnerabilities before deployment
+- Use signed images and verify signatures at admission
+- Pin images to specific digests, not tags
+- Use minimal base images (distroless, alpine)
+- Block privileged containers at admission
+
+### Runtime Monitoring
+
+- Deploy runtime security monitoring (Falco, Sysdig)
+- Monitor for unusual process execution
+- Alert on container escape attempts
+- Track file system changes in running containers
+
+## Secrets Management
+
+- Never store secrets in environment variables or config maps
+- Use a dedicated secrets manager (Vault, AWS Secrets Manager)
+- Enable encryption at rest for all secret storage
+- Rotate secrets on a regular schedule
+- Audit secret access
+
+## Logging and Monitoring
+
+- Enable comprehensive audit logging
+- Ship logs to a centralized, tamper-proof store
+- Monitor for security-relevant events (RBAC changes, new pods)
+- Set up alerts for anomalous behavior
+- Regular log review and analysis
+
+## Compliance and Maintenance
+
+- Regular security assessments and penetration testing
+- Review and update RBAC policies quarterly
+- Test disaster recovery procedures
+- Document security configurations and decisions
+- Keep an up-to-date incident response plan for Kubernetes

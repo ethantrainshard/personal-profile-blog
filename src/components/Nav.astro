@@ -1,0 +1,84 @@
+---
+import { navLinks } from '../config';
+---
+
+<nav class="nav">
+  <div class="container nav-container">
+    <a href="/" class="wordmark" aria-label="Home">ETHAN GOH</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-menu">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link" data-nav-link>{link.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    transition: color 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+  .nav-link:hover {
+    color: var(--color-link);
+    opacity: 1;
+  }
+
+  .nav-link.active {
+    color: var(--color-link);
+  }
+</style>
+
+<script client:load>
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.querySelector('.nav-menu');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen.toString());
+    });
+  }
+
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('[data-nav-link]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && (currentPath === href || (href !== '/' && currentPath.startsWith(href)))) {
+      link.classList.add('active');
+    }
+  });
+</script>

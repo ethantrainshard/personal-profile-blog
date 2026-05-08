@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const results = await Promise.all(
+    posts.map(async (post) => {
+      const { Content } = await post.render();
+      return {
+        params: { slug: post.slug },
+        props: { post, Content },
+      };
+    })
+  );
+  return results;
+}
+
+const { post, Content } = Astro.props;
+const { title, date, category } = post.data;
+
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={`${title} — Ethan Goh`}>
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <a href="/blog" class="nav-link" style="margin-bottom: var(--spacing-xl); display: inline-block;">← Back to Blog</a>
+
+      <div style="max-width: 720px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+          <span class="tag">{category}</span>
+          <span class="date-pill">{formattedDate}</span>
+        </div>
+
+        <h1 class="display-lg" style="margin-bottom: var(--spacing-xxl);">{title}</h1>
+
+        <article class="post-content">
+          <Content />
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>

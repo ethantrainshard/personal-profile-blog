@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  slug: string;
+  date: string;
+  category: string;
+}
+
+const { title, excerpt, slug, date, category } = Astro.props;
+
+const categoryClass = category === 'Development' ? 'tag-development' : category === 'Security' ? 'tag-security' : category === 'Infrastructure' ? 'tag-infrastructure' : '';
+
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a href={`/blog/${slug}`} class="card-link">
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+      <span class="tag {categoryClass}">{category}</span>
+      <span class="date-pill">{formattedDate}</span>
+    </div>
+    <h3 class="title-md" style="margin-bottom: var(--spacing-sm);">{title}</h3>
+    <p class="body-md">{excerpt}</p>
+  </div>
+</a>
+
+<style>
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-link:focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+  }
+</style>

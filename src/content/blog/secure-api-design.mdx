@@ -1,0 +1,55 @@
+---
+title: 'Secure API Design: Beyond Authentication'
+excerpt: 'Moving past basic auth to implement comprehensive API security including rate limiting, input validation, and threat modeling.'
+date: 2024-07-10
+category: 'Development'
+---
+
+Most API security discussions stop at authentication. Get the auth right, and many teams consider the job done. But authentication is just the first layer. Real API security requires thinking about the entire request lifecycle — from the moment a request hits your edge to the moment the response leaves your server.
+
+Here's a comprehensive approach to API security that goes beyond basic authentication, based on lessons learned from securing APIs serving millions of requests.
+
+## Authentication Is Not Authorization
+
+Authentication answers "who are you?" Authorization answers "what are you allowed to do?" These are separate concerns that both need robust implementation.
+
+### Beyond JWT
+
+JWTs are convenient but often misused. We moved to a hybrid approach: short-lived access tokens (15 minutes) for API calls paired with refresh tokens stored in secure, HTTP-only cookies. This limits the window of exposure if an access token is compromised while maintaining a good user experience.
+
+### Token Binding
+
+We bind access tokens to specific client properties (TLS client certificate fingerprint) so that even if a token is intercepted, it cannot be used from a different client. This adds a layer of protection without requiring additional user interaction.
+
+## Input Validation: The First Line of Defense
+
+Every piece of input that enters your system is a potential attack vector. Input validation should happen at every layer.
+
+### Schema Validation
+
+We use JSON Schema for request validation at the API gateway level. Invalid requests are rejected before they reach application code, reducing the attack surface and providing consistent error responses.
+
+### Type Safety
+
+We enforce type safety end-to-end: TypeScript interfaces for request/response types, database schema validation, and runtime type checking in service boundaries. This prevents type confusion attacks and makes the codebase more maintainable.
+
+### Rate Limiting and Throttling
+
+Rate limiting protects against abuse and denial-of-service attacks. We implement rate limiting at multiple levels: per-IP at the edge, per-user at the API gateway, and per-endpoint in application code. Different endpoints have different limits based on their resource cost.
+
+## Threat Modeling
+
+We conduct threat modeling sessions for every new API endpoint. Using the STRIDE framework (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege), we identify potential attack vectors and design mitigations before writing code.
+
+## Security Headers and Response Hardening
+
+API responses should include security headers that protect consumers:
+
+- Content-Security-Policy to prevent XSS
+- X-Content-Type-Options: nosniff to prevent MIME sniffing
+- Cache-Control to prevent sensitive data caching
+- Strict-Transport-Security for HTTPS enforcement
+
+## Conclusion
+
+API security is a layered defense. Authentication is important but insufficient. Input validation, rate limiting, threat modeling, and response hardening all contribute to a robust security posture. The goal is to make each layer compensate for the weaknesses of the others, so that a failure in one layer doesn't compromise the entire system.

@@ -1,0 +1,24 @@
+---
+title: 'NetSentinel'
+description: 'Real-time network intrusion detection system using machine learning anomaly detection.'
+date: '2023'
+techStack: ['Python', 'TensorFlow', 'Scapy', 'Elasticsearch']
+techColors: ['var(--color-link)', 'var(--color-body)', 'var(--color-warning)', 'var(--color-link)']
+overview: 'Traditional intrusion detection systems rely on known attack signatures, making them blind to zero-day exploits and novel attack techniques. NetSentinel takes a behavioral approach — it learns the normal traffic patterns of a network and alerts on significant deviations, regardless of whether the specific attack pattern has been seen before.\n\nThe system was designed for mid-to-large enterprise networks where the volume of traffic makes manual analysis impossible, but where the cost of a breach far exceeds the investment in detection.'
+features: [
+  'Real-time traffic analysis with sub-second latency',
+  'Unsupervised anomaly detection — no labeled attack data needed',
+  'Adaptive baselines that learn from network changes',
+  'Integration with SIEM platforms (Splunk, ELK Stack)',
+  'Automated incident response playbooks',
+  'Network segment profiling and comparison',
+  'Exportable threat intelligence feeds',
+]
+role: 'Solo Developer — designed ML models, built data pipeline, and created the detection engine'
+githubUrl: 'https://github.com/ethangoh/netsentinel'
+liveUrl: null
+---
+
+NetSentinel is a real-time network intrusion detection system that uses machine learning to identify anomalous network traffic patterns. Unlike signature-based IDS solutions, NetSentinel can detect previously unknown attack vectors by learning what normal traffic looks like for each network segment.
+
+The system processes network flow data (NetFlow, sFlow) in real-time, extracting features such as packet sizes, inter-arrival times, protocol distributions, and connection patterns. A lightweight anomaly detection model flags deviations for further analysis.

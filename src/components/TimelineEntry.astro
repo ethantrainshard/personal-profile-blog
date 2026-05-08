@@ -1,0 +1,29 @@
+---
+interface Props {
+  date: string;
+  title: string;
+  company: string;
+  location?: string;
+  description: string;
+  technologies?: string[];
+  techColors?: string[];
+}
+
+const { date, title, company, location, description, technologies, techColors } = Astro.props;
+
+const locationText = location ? ` \u2014 ${location}` : '';
+---
+
+<div class="timeline-entry">
+  <p class="caption-uppercase timeline-date">{date}</p>
+  <h3 class="title-md timeline-title">{title}</h3>
+  <p class="body-md timeline-company">{company}{locationText}</p>
+  <p class="body-md" style="margin-bottom: var(--spacing-md);">{description}</p>
+  {technologies && technologies.length > 0 && (
+    <div class="skill-list">
+      {technologies.map((tech, i) => (
+        <span class="skill-tag" style={techColors && techColors[i] ? `border-color: ${techColors[i]}; color: ${techColors[i]};` : ''}>{tech}</span>
+      ))}
+    </div>
+  )}
+</div>

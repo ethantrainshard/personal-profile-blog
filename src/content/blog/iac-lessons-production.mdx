@@ -1,0 +1,60 @@
+---
+title: 'Infrastructure as Code: Lessons from Production'
+excerpt: 'Key lessons learned from managing production infrastructure with Terraform across multiple cloud providers and teams.'
+date: 2024-09-22
+category: 'Infrastructure'
+---
+
+After managing production infrastructure with Terraform across AWS, Azure, and GCP for over three years, I've accumulated a set of hard-won lessons about what works, what doesn't, and what I wish I knew before starting.
+
+Infrastructure as Code promises reproducibility, version control, and collaboration for infrastructure management. In practice, achieving these benefits requires discipline, the right patterns, and a willingness to refactor your approach as your organization grows.
+
+## Module Design: The Foundation
+
+The single most impactful decision we made was establishing clear module design principles early on.
+
+### Atomic Modules
+
+Each module should do one thing and do it well. We moved from monolithic modules (one module for "everything in AWS") to atomic modules: one module for VPCs, one for ECS clusters, one for RDS instances, etc. This makes modules reusable, testable, and easier to understand.
+
+### Versioned Modules
+
+We store modules in their own repositories with semantic versioning. This allows different teams to consume module versions independently — one team can be on v2.3 while another is on v3.1. Module consumers pin to specific versions, and we use automation to notify when new versions are available.
+
+### Input Validation
+
+Every module validates its inputs. We use Terraform's validation rules to ensure required variables are provided, values are in expected ranges, and resource names follow naming conventions. Catching configuration errors at plan time saves hours of debugging later.
+
+## State Management: The Hidden Complexity
+
+Terraform state is the single point of failure in any IaC workflow. Losing state means losing the mapping between your configuration and your actual infrastructure.
+
+### Remote State with Locking
+
+We use S3 with DynamoDB locking for AWS, Azure Blob Storage for Azure, and GCS for GCP. Remote state enables team collaboration and the locking mechanism prevents concurrent modifications that could corrupt state.
+
+### State Segmentation
+
+We segment state by environment and service domain. Each microservice has its own state file, and environments (dev, staging, prod) are completely separate. This isolation means a failure in one service's infrastructure doesn't cascade to others, and it enables independent deployment cycles.
+
+### State Backup and Recovery
+
+We automate state backups to a separate account with immutable storage. Every state file change is versioned and backed up within minutes. We've tested our recovery procedure twice, and both times it worked exactly as planned.
+
+## Team Collaboration
+
+### Policy as Code
+
+We implemented policy enforcement using Sentinel and OPA to prevent common mistakes: no public S3 buckets, no unrestricted security groups, required tagging, cost limits per service. Policies run during the plan phase and block non-compliant changes before they reach apply.
+
+### Code Review for Infrastructure
+
+Infrastructure changes go through the same code review process as application code. We use pull requests with mandatory reviews, automated policy checks, and plan output as the primary review artifact. Reviewers check for security, cost, reliability, and adherence to architectural standards.
+
+### Documentation
+
+Every module includes a README with usage examples, input/output documentation, and architectural decisions. We treat documentation as code — it lives in the same repository, is reviewed in the same PRs, and is versioned with the module.
+
+## What I Wish I Knew
+
+Start small and iterate. Don't try to boil the ocean with your first IaC implementation. Start with a single service, get the workflow right, then expand. Invest in automation early — testing, policy checks, and deployment pipelines pay for themselves quickly. And never, ever manage production infrastructure by hand.
