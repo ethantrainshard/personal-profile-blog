@@ -74,6 +74,12 @@ import { navLinks } from '../config';
     });
   }
 
+  document.querySelectorAll('[data-nav-link]').forEach(link => {
+    link.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
   const currentPath = window.location.pathname;
   document.querySelectorAll('[data-nav-link]').forEach(link => {
     const href = link.getAttribute('href');
