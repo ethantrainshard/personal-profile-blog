@@ -10,6 +10,7 @@ import { navLinks } from '../config';
       <span></span>
       <span></span>
     </button>
+    <div class="nav-backdrop" client:load></div>
     <div class="nav-menu">
       {navLinks.map(link => (
         <a href={link.href} class="nav-link" data-nav-link>{link.label}</a>
@@ -61,22 +62,45 @@ import { navLinks } from '../config';
   .nav-link.active {
     color: var(--color-link);
   }
+
+  .nav-backdrop {
+    display: none;
+  }
 </style>
 
 <script client:load>
   const toggle = document.querySelector('.nav-toggle');
   const menu = document.querySelector('.nav-menu');
+  const backdrop = document.querySelector('.nav-backdrop');
+
+  function closeMenu() {
+    if (menu && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      if (backdrop) backdrop.classList.remove('visible');
+    }
+  }
 
   if (toggle && menu) {
     toggle.addEventListener('click', () => {
       const isOpen = menu.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
       toggle.setAttribute('aria-expanded', isOpen.toString());
+      if (backdrop) {
+        backdrop.classList.toggle('visible', isOpen);
+      }
     });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMenu);
   }
 
   document.querySelectorAll('[data-nav-link]').forEach(link => {
     link.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      closeMenu();
     });
   });
 

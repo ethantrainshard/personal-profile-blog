@@ -1024,6 +1024,8 @@ button {
   border: none;
   cursor: pointer;
   padding: var(--spacing-xs);
+  z-index: 110;
+  position: relative;
 }
 
 .nav-toggle span {
@@ -1031,7 +1033,19 @@ button {
   width: 24px;
   height: 1px;
   background-color: var(--color-on-dark);
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ============================================
@@ -1086,10 +1100,6 @@ button {
   }
 
   .nav-menu {
-    display: none;
-  }
-
-  .nav-menu.open {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -1100,6 +1110,33 @@ button {
     border-bottom: 1px solid var(--color-hairline);
     padding: var(--spacing-lg) var(--spacing-xl);
     gap: var(--spacing-md);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+  }
+
+  .nav-menu.open {
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 95;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+  }
+
+  .nav-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .timeline {
