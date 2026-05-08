@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config';
 
@@ -35,6 +36,7 @@ const assetPath = (p) => base + '/' + p;
   </head>
   <body>
     <Nav />
+    <ScrollToTop />
     <main id="main-content">
       <slot />
     </main>
