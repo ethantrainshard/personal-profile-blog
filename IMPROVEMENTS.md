@@ -44,20 +44,15 @@ The hamburger menu closes the menu when a link is clicked, but there's no animat
 
 ## 4. Design & Visual Polish
 
-**a) Hero section could use a subtle animated element**
-A very subtle CSS animation (e.g., a slow-pulsing accent glow behind the name, or a typing effect on the subtitle) would add personality without violating the austere Bugatti design.
+**a) ~~Hero section could use a subtle animated element~~** ✅ Done — Added a slow-pulsing ice-blue radial glow (`@keyframes hero-glow-pulse`, 8s cycle) behind the name in the hero section. Pure CSS, respects `prefers-reduced-motion`.
 
-**b) Add a subtle section intro pattern**
-Each page's `<h1>` could be preceded by a small decorative element — e.g., a short ice-blue horizontal line or the page's accent color line — to create visual consistency across pages.
+**b) ~~Add a subtle section intro pattern~~** ✅ Done — Added `.section-heading` class with a 40px ice-blue `::before` pseudo-element accent line before every page `<h1>`. Applied to About, Blog, Projects, Experience, blog post detail, and project detail pages.
 
-**c) Improve blog post typography**
-The blog post content uses `dangerouslySetInnerHTML` with basic HTML conversion. Using Astro's built-in `markdown-to-jsx` or `remark` transforms would properly render headings, code blocks, blockquotes, and lists with the site's typography classes.
+**c) ~~Improve blog post typography~~** ✅ Done — Extended `.post-content` CSS with styles for `h4`/`h5`/`h6` (display font, ice-blue left border on h4), `table`/`thead`/`tbody` (striped rows, display font headers), `kbd`, `mark`, and `details`/`summary` (styled collapsible blocks).
 
-**d) Add a last-updated date to blog posts**
-Blog posts show the publish date but not a last-updated date, which is important for technical content.
+**d) ~~Add a last-updated date to blog posts~~** ✅ Done — Added optional `updated` field to blog content schema. Blog post detail page conditionally displays "Updated \<date\>" when present, falling back to publish date.
 
-**e) Add a table of contents to blog posts**
-Long blog posts would benefit from a sticky sidebar TOC (or a collapsible mobile TOC) for easy navigation.
+**e) ~~Add a table of contents to blog posts~~** ✅ Done — Custom `extractToc` utility parses h2/h3 headings from raw MDX. Desktop shows a sticky 200px TOC sidebar in a two-column grid. Mobile shows a collapsible `<details>` accordion TOC.
 
 ---
 
