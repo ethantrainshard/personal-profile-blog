@@ -425,7 +425,7 @@ button {
 
 .hero-band-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   padding: 6rem 2rem;
 }
@@ -461,10 +461,10 @@ button {
   height: 400px;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse, var(--color-link) 0%, transparent 65%);
-  opacity: 0.2;
+  opacity: 0.25;
   animation: hero-glow-pulse 8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 /* ============================================
