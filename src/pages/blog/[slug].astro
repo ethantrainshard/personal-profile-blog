@@ -17,13 +17,21 @@ export async function getStaticPaths() {
 }
 
 const { post, Content } = Astro.props;
-const { title, date, category } = post.data;
+const { title, date, updated, category } = post.data;
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+
+const formattedUpdated = updated
+  ? new Date(updated).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : null;
 ---
 
 <Layout title={`${title} — Ethan Goh`}>
@@ -34,7 +42,11 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       <div style="max-width: 720px; margin: 0 auto;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
           <span class="tag">{category}</span>
-          <span class="date-pill">{formattedDate}</span>
+          <span class="date-pill">
+            {formattedUpdated
+              ? <>Updated {formattedUpdated}</>
+              : formattedDate}
+          </span>
         </div>
 
         <div class="section-heading"><h1 class="display-lg">{title}</h1></div>
