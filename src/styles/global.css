@@ -367,6 +367,26 @@ button {
 }
 
 /* ============================================
+   SECTION HEADING
+   ============================================ */
+
+.section-heading {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+}
+
+.section-heading::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--color-link);
+}
+
+/* ============================================
    HAIRLINE DIVIDER
    ============================================ */
 
