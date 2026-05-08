@@ -430,21 +430,6 @@ button {
   padding: 6rem 2rem;
 }
 
-.hero-band-content::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, var(--color-link) 0%, transparent 70%);
-  opacity: 0.12;
-  animation: hero-glow-pulse 8s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .hero-band-content .caption-uppercase {
   margin-top: var(--spacing-md);
 }
@@ -459,13 +444,27 @@ button {
 
 @keyframes hero-glow-pulse {
   0%, 100% {
-    opacity: 0.12;
+    opacity: 0.2;
     transform: scale(1);
   }
   50% {
-    opacity: 0.22;
-    transform: scale(1.08);
+    opacity: 0.35;
+    transform: scale(1.1);
   }
+}
+
+.hero-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 700px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, var(--color-link) 0%, transparent 65%);
+  opacity: 0.2;
+  animation: hero-glow-pulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ============================================
