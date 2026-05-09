@@ -298,6 +298,11 @@ button {
   border-color: var(--color-link);
 }
 
+.btn-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 /* ============================================
    CARD
    ============================================ */
