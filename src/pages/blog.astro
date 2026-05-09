@@ -21,6 +21,7 @@ const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime(
             slug={post.slug}
             date={post.data.date}
             category={post.data.category}
+            readingTime={post.data.readingTime}
           />
         ))}
       </div>
