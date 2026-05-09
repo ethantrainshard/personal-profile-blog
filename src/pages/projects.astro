@@ -20,6 +20,8 @@ const projects = await getCollection('projects');
             techStack={project.data.techStack}
             slug={project.slug}
             date={project.data.date}
+            techColors={project.data.techColors}
+            visualTheme={project.data.visualTheme}
           />
         ))}
       </div>
