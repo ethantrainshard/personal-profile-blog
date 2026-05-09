@@ -10,20 +10,15 @@
 
 ## 2. Pages & Content
 
-**a) Add a contact page**
-The About page has contact buttons but no actual contact form or dedicated contact section. A `Contact` page with a form (via Formspree or similar) would make it easy for visitors to reach out.
+**a) ~~Add a contact page~~** ✅ Done — New `/contact` page with Formspree form (name, email, message fields), success/error handling, and a sidebar with contact info and social link buttons. Added `/contact` to navLinks in config.
 
-**b) Add a reading time estimate to blog cards**
-Currently blog cards show date and category but no reading time. Adding an estimated read time (e.g., "8 min read") helps users decide what to read.
+**b) ~~Add a reading time estimate to blog cards~~** ✅ Done — Added optional `readingTime` field to blog schema. BlogCard displays reading time alongside date. All 4 blog posts have frontmatter reading time values (2-3 min read).
 
-**c) Add blog post pagination**
-The blog list page shows all posts at once. With more posts, pagination or "Load More" would be needed.
+**c) ~~Add blog post pagination~~** ✅ Done — Blog list page paginates at 6 posts per page with query param routing (`?page=N`). Shows prev/next buttons with "Page X of Y" indicator and disabled state styling.
 
-**d) Add project image placeholders with actual visuals**
-The project cards use a plain text placeholder ("Project"). Adding colored gradient backgrounds or SVG illustrations per project would make the grid more visually engaging.
+**d) ~~Add project image placeholders with actual visuals~~** ✅ Done — Each project gets a unique gradient theme (blue/amber/green/purple) with matching SVG icon replacing the plain "Project" text. Schema updated with optional `visualTheme` field. Card links now have `aria-label` for accessibility.
 
-**e) Add a "Featured" or highlight to key projects**
-On the projects page, the most impressive project could be featured larger (a hero card) above the grid.
+**e) ~~Add a "Featured" or highlight to key projects~~** ✅ Done — Added optional `featured` boolean to project schema. Projects page shows a full-width hero card for featured projects with larger layout, source/live demo links, and gradient image. Non-featured projects render in the existing 2-col grid below.
 
 ---
 
