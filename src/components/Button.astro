@@ -21,6 +21,6 @@ const externalRel = isExternal ? (rel || 'noopener noreferrer') : (rel || '');
 ---
 
 {href
-  ? <a href={href} class={classes} target={target as any} rel={externalRel}>{text}</a>
+  ? <a href={href} class={classes} target={target as string | undefined} rel={externalRel}>{text}</a>
   : <button class={classes}>{text}</button>
 }
