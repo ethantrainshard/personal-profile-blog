@@ -5,6 +5,13 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 type Entry = CollectionEntry<'projects'>;
 
+const techColorToClass: Record<string, string> = {
+  'var(--color-link)': 'skill-tag--link',
+  'var(--color-warning)': 'skill-tag--warning',
+  'var(--color-success)': 'skill-tag--success',
+  'var(--color-body)': 'skill-tag--body',
+};
+
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map(project => ({
@@ -17,12 +24,12 @@ const { title, description, overview, features, techStack, techColors, role, dat
 ---
 
 <Layout title={`${title} — Ethan Goh`}>
-  <section class="section" style="padding-top: 120px;">
+  <section class="section">
     <div class="container">
-      <a href="/projects" class="nav-link" style="margin-bottom: var(--spacing-xl); display: inline-block;">← Back to Projects</a>
+      <a href="/projects" class="nav-link page-back-link">← Back to Projects</a>
 
       <div class="section-heading"><h1 class="display-lg">{title}</h1></div>
-      <div style="display: flex; gap: var(--spacing-xl); flex-wrap: wrap; margin-bottom: var(--spacing-xxl);">
+      <div class="flex-row-wrap">
         <p class="caption-uppercase">{date}</p>
       </div>
 
@@ -35,7 +42,7 @@ const { title, description, overview, features, techStack, techColors, role, dat
           <p class="caption-uppercase project-meta-label">Tech Stack</p>
           <div class="skill-list">
             {techStack.map((tech, i) => (
-              <span class="skill-tag" style={techColors && techColors[i] ? `border-color: ${techColors[i]}; color: ${techColors[i]};` : ''}>{tech}</span>
+              <span class:list={['skill-tag', techColorToClass[techColors?.[i] || ''] || '']}>{tech}</span>
             ))}
           </div>
         </div>
@@ -48,7 +55,7 @@ const { title, description, overview, features, techStack, techColors, role, dat
         <h2>Key Features</h2>
         <ul>
           {features.map(feature => (
-            <li class="body-md" style="margin-bottom: var(--spacing-sm);">{feature}</li>
+            <li class="body-md feature-item">{feature}</li>
           ))}
         </ul>
 

@@ -26,10 +26,10 @@ const nextUrl = currentPage < totalPages ? `?page=${currentPage + 1}` : '';
 ---
 
 <Layout title="Blog — Ethan Goh">
-  <section class="section" style="padding-top: 120px;">
+  <section class="section">
     <div class="container">
       <div class="section-heading"><h1 class="display-lg">Blog</h1></div>
-      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl); color: var(--color-link);">Thoughts on Security, Infrastructure & Development</p>
+      <p class="caption-uppercase section-subtitle">Thoughts on Security, Infrastructure & Development</p>
 
       <div class="grid-2">
         {paginatedPosts.map(post => (
@@ -45,24 +45,22 @@ const nextUrl = currentPage < totalPages ? `?page=${currentPage + 1}` : '';
       </div>
 
       {totalPages > 1 && (
-        <div style="display: flex; justify-content: center; align-items: center; gap: var(--spacing-lg); margin-top: var(--spacing-xxl);">
+        <div class="pagination-controls">
           <a
             href={prevUrl || '#'}
-            class="btn {currentPage === 1 ? 'btn-disabled' : ''}"
-            style={currentPage === 1 ? 'opacity: 0.4; pointer-events: none;' : ''}
+            class:list={['btn', { 'btn-disabled': currentPage === 1 }]}
             aria-label="Previous page"
           >
             ← Previous
           </a>
 
-          <span class="body-sm" style="color: var(--color-muted); min-width: 80px; text-align: center;">
+          <span class="body-sm pagination-counter">
             Page {currentPage} of {totalPages}
           </span>
 
           <a
             href={nextUrl || '#'}
-            class="btn {currentPage === totalPages ? 'btn-disabled' : ''}"
-            style={currentPage === totalPages ? 'opacity: 0.4; pointer-events: none;' : ''}
+            class:list={['btn', { 'btn-disabled': currentPage === totalPages }]}
             aria-label="Next page"
           >
             Next →

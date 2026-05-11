@@ -21,14 +21,14 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
 <a href={`/blog/${slug}`} class="card-link">
   <div class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-sm); flex-wrap: wrap;">
+    <div class="card-meta-row">
       <span class="tag {categoryClass}">{category}</span>
-      <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+      <div class="card-meta-inline">
         {readingTime && <span class="date-pill">{readingTime}</span>}
         <span class="date-pill">{formattedDate}</span>
       </div>
     </div>
-    <h3 class="title-md" style="margin-bottom: var(--spacing-sm);">{title}</h3>
+    <h3 class="title-md card-title">{title}</h3>
     <p class="body-md">{excerpt}</p>
   </div>
 </a>

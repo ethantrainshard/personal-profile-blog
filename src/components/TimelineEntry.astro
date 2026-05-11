@@ -12,17 +12,24 @@ interface Props {
 const { date, title, company, location, description, technologies, techColors } = Astro.props;
 
 const locationText = location ? ` \u2014 ${location}` : '';
+
+const techColorToClass: Record<string, string> = {
+  'var(--color-link)': 'skill-tag--link',
+  'var(--color-warning)': 'skill-tag--warning',
+  'var(--color-success)': 'skill-tag--success',
+  'var(--color-body)': 'skill-tag--body',
+};
 ---
 
 <div class="timeline-entry">
   <p class="caption-uppercase timeline-date">{date}</p>
   <h3 class="title-md timeline-title">{title}</h3>
   <p class="body-md timeline-company">{company}{locationText}</p>
-  <p class="body-md" style="margin-bottom: var(--spacing-md);">{description}</p>
+  <p class="body-md timeline-description">{description}</p>
   {technologies && technologies.length > 0 && (
     <div class="skill-list">
       {technologies.map((tech, i) => (
-        <span class="skill-tag" style={techColors && techColors[i] ? `border-color: ${techColors[i]}; color: ${techColors[i]};` : ''}>{tech}</span>
+        <span class:list={['skill-tag', techColorToClass[techColors?.[i] || ''] || '']}>{tech}</span>
       ))}
     </div>
   )}

@@ -13,6 +13,13 @@ interface Props {
 const { title, description, techStack, slug, imageAlt = 'Project image', date, techColors, visualTheme } = Astro.props;
 
 const themeClass = visualTheme ? `card-image-placeholder theme-${visualTheme}` : 'card-image-placeholder';
+
+const techColorToClass: Record<string, string> = {
+  'var(--color-link)': 'skill-tag--link',
+  'var(--color-warning)': 'skill-tag--warning',
+  'var(--color-success)': 'skill-tag--success',
+  'var(--color-body)': 'skill-tag--body',
+};
 ---
 
 <a href={`/projects/${slug}`} class="card-link" aria-label={`View project: ${title}`}>
@@ -51,13 +58,13 @@ const themeClass = visualTheme ? `card-image-placeholder theme-${visualTheme}` :
         </svg>
       )}
     </div>
-    <div style="margin-top: var(--spacing-lg);">
-      {date && <p class="date-pill" style="margin-bottom: var(--spacing-sm);">{date}</p>}
-      <h3 class="title-md" style="margin-bottom: var(--spacing-sm);">{title}</h3>
-      <p class="body-md" style="margin-bottom: var(--spacing-md);">{description}</p>
-      <div class="skill-list" style="gap: var(--spacing-xs);">
+    <div class="card-content">
+      {date && <p class="date-pill card-date">{date}</p>}
+      <h3 class="title-md card-title">{title}</h3>
+      <p class="body-md card-description">{description}</p>
+      <div class="skill-list">
         {techStack.map((tech, i) => (
-          <span class="skill-tag" style={techColors && techColors[i] ? `border-color: ${techColors[i]}; color: ${techColors[i]};` : ''}>{tech}</span>
+          <span class:list={['skill-tag', techColorToClass[techColors?.[i] || ''] || '']}>{tech}</span>
         ))}
       </div>
     </div>

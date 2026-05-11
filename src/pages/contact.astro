@@ -4,28 +4,29 @@ import Button from '../components/Button.astro';
 import { socialLinks } from '../config';
 
 let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
+let isSubmitting = false;
 ---
 
 <Layout title="Contact — Ethan Goh">
-  <section class="section" style="padding-top: 120px;">
+  <section class="section">
     <div class="container">
       <div class="section-heading"><h1 class="display-lg">Contact</h1></div>
-      <p class="caption-uppercase" style="margin-bottom: var(--spacing-xxl);">Get in Touch</p>
+      <p class="caption-uppercase section-subtitle">Get in Touch</p>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xxl); max-width: 1000px;">
+      <div class="two-col-grid">
         <!-- Contact Form -->
         <div>
-          <h2 class="title-md" style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-hairline);">Send a Message</h2>
+          <h2 class="title-md section-subheading">Send a Message</h2>
 
           {formStatus === 'success' && (
-            <div style="background-color: var(--color-surface-elevated); border: 1px solid var(--color-success); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
-              <p class="body-md" style="color: var(--color-success);">Message sent successfully! I'll get back to you soon.</p>
+            <div class="alert alert-success">
+              <p class="body-md">Message sent successfully! I'll get back to you soon.</p>
             </div>
           )}
 
           {formStatus === 'error' && (
-            <div style="background-color: var(--color-surface-elevated); border: 1px solid var(--color-warning); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
-              <p class="body-md" style="color: var(--color-warning);">Something went wrong. Please try again or email me directly.</p>
+            <div class="alert alert-warning">
+              <p class="body-md">Something went wrong. Please try again or email me directly.</p>
             </div>
           )}
 
@@ -34,44 +35,38 @@ let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
             method="POST"
             id="contact-form"
           >
-            <div style="margin-bottom: var(--spacing-lg);">
-              <label for="name" class="body-sm" style="display: block; margin-bottom: var(--spacing-xs); color: var(--color-body-strong);">Name</label>
+            <div class="form-field">
+              <label for="name" class="form-label">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
-                style="width: 100%; background-color: var(--color-surface-soft); border: 1px solid var(--color-hairline); color: var(--color-on-dark); padding: var(--spacing-sm) var(--spacing-md); font-family: var(--font-body); font-size: 1rem; line-height: 1.5; min-height: 44px; transition: border-color 0.2s ease-out;"
-                onfocus="this.style.borderColor='var(--color-link)'"
-                onblur="this.style.borderColor='var(--color-hairline)'"
+                class="form-input"
                 placeholder="Your name"
               />
             </div>
 
-            <div style="margin-bottom: var(--spacing-lg);">
-              <label for="email" class="body-sm" style="display: block; margin-bottom: var(--spacing-xs); color: var(--color-body-strong);">Email</label>
+            <div class="form-field">
+              <label for="email" class="form-label">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
-                style="width: 100%; background-color: var(--color-surface-soft); border: 1px solid var(--color-hairline); color: var(--color-on-dark); padding: var(--spacing-sm) var(--spacing-md); font-family: var(--font-body); font-size: 1rem; line-height: 1.5; min-height: 44px; transition: border-color 0.2s ease-out;"
-                onfocus="this.style.borderColor='var(--color-link)'"
-                onblur="this.style.borderColor='var(--color-hairline)'"
+                class="form-input"
                 placeholder="your@email.com"
               />
             </div>
 
-            <div style="margin-bottom: var(--spacing-xl);">
-              <label for="message" class="body-sm" style="display: block; margin-bottom: var(--spacing-xs); color: var(--color-body-strong);">Message</label>
+            <div class="form-field form-field--xl">
+              <label for="message" class="form-label">Message</label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows="6"
-                style="width: 100%; background-color: var(--color-surface-soft); border: 1px solid var(--color-hairline); color: var(--color-on-dark); padding: var(--spacing-sm) var(--spacing-md); font-family: var(--font-body); font-size: 1rem; line-height: 1.5; resize: vertical; min-height: 120px; transition: border-color 0.2s ease-out;"
-                onfocus="this.style.borderColor='var(--color-link)'"
-                onblur="this.style.borderColor='var(--color-hairline)'"
+                class="form-input form-textarea"
                 placeholder="Your message..."
               ></textarea>
             </div>
@@ -82,30 +77,30 @@ let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
 
         <!-- Contact Info -->
         <div>
-          <h2 class="title-md" style="margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-hairline);">Other Ways to Reach Me</h2>
-          <p class="body-md" style="margin-bottom: var(--spacing-xl); color: var(--color-body); line-height: 1.7;">
+          <h2 class="title-md section-subheading">Other Ways to Reach Me</h2>
+          <p class="body-md info-description">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
           </p>
 
-          <div style="margin-bottom: var(--spacing-xl);">
-            <p class="body-sm" style="margin-bottom: var(--spacing-xs); color: var(--color-muted);">Email</p>
-            <p class="body-md" style="color: var(--color-body-strong);">hello@ethangoh.dev</p>
+          <div class="info-item">
+            <p class="body-sm info-label">Email</p>
+            <p class="body-md info-text">hello@ethangoh.dev</p>
           </div>
 
-          <div style="margin-bottom: var(--spacing-xl);">
-            <p class="body-sm" style="margin-bottom: var(--spacing-xs); color: var(--color-muted);">Response Time</p>
-            <p class="body-md" style="color: var(--color-body-strong);">Usually within 24-48 hours</p>
+          <div class="info-item">
+            <p class="body-sm info-label">Response Time</p>
+            <p class="body-md info-text">Usually within 24-48 hours</p>
           </div>
 
-          <div style="margin-bottom: var(--spacing-xl);">
-            <p class="body-sm" style="margin-bottom: var(--spacing-lg); color: var(--color-muted);">Connect</p>
-            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-md);">
+          <div class="info-item">
+            <p class="body-sm info-label">Connect</p>
+            <div class="btn-group">
               {socialLinks.map((link, i) => (
                 <Button
                   text={link.label}
                   href={link.href}
-                  target={link.target as string}
-                  rel={link.rel as string}
+                  target={link.target ?? undefined}
+                  rel={link.rel ?? undefined}
                   variant={i === 0 ? 'default' : 'secondary'}
                 />
               ))}
@@ -127,7 +122,7 @@ let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
 
     const formData = new FormData(form);
     submitBtn.textContent = 'Sending...';
-    submitBtn.style.opacity = '0.6';
+    submitBtn.classList.add('btn--loading');
     submitBtn.disabled = true;
 
     try {
@@ -147,7 +142,7 @@ let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
       alert('Network error. Please check your connection and try again.');
     } finally {
       submitBtn.textContent = 'Send Message';
-      submitBtn.style.opacity = '1';
+      submitBtn.classList.remove('btn--loading');
       submitBtn.disabled = false;
     }
   });
