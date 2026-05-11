@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="404 — Page Not Found" description="The page you are looking for does not exist.">
+  <section class="section">
+    <div class="container">
+      <div class="page-404-wrapper">
+        <h1 class="display-xl page-404-code">404</h1>
+        <p class="caption-uppercase page-404-subtitle">Page Not Found</p>
+        <p class="body-lg page-404-description">
+          The page you are looking for doesn't exist or has been moved.
+        </p>
+        <Button text="Back to Home" href="/" variant="default" />
+      </div>
+    </div>
+  </section>
+</Layout>

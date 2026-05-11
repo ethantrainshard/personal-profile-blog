@@ -1556,6 +1556,30 @@ button {
    PRINT
    ============================================ */
 
+/* ============================================
+   404 PAGE
+   ============================================ */
+
+.page-404-wrapper {
+  text-align: center;
+  padding: var(--spacing-xxl) 0;
+}
+
+.page-404-code {
+  margin-bottom: var(--spacing-md);
+}
+
+.page-404-subtitle {
+  color: var(--color-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+.page-404-description {
+  max-width: 500px;
+  margin: 0 auto var(--spacing-xxl);
+  color: var(--color-body);
+}
+
 @media print {
   body {
     background-color: #fff;
