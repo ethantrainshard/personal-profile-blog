@@ -85,17 +85,13 @@ The card image placeholders use `aria-hidden="true"` which is correct, but the c
 
 ## 7. Code Quality
 
-**a) Remove inline styles**
-Pages use heavy inline styles (e.g., `style="margin-bottom: var(--spacing-lg);"`) instead of CSS utility classes. Extracting these to CSS classes would reduce repetition and improve maintainability.
+**a) ~~Remove inline styles~~** ✅ Done — All 112 inline style occurrences removed across 11 files. Added ~70 CSS utility classes to `global.css` including `.section-subtitle`, `.section-subheading`, `.skill-tag--{color}` variants, `.form-input`, `.form-label`, `.alert-success/warning`, `.two-col-grid`, `.btn-group`, `.pagination-controls`, and more. Removed redundant inline styles already covered by existing CSS (`.section`, `.btn`, `.btn-disabled`). Replaced JS inline style manipulation (`onfocus`/`onblur`, `style.opacity`) with CSS pseudo-classes and class toggling.
 
-**b) DRY up skill tag rendering**
-The About page repeats `style="border-color: var(--color-link); color: var(--color-link);"` 11 times. A utility class like `.skill-tag--blue` would be cleaner.
+**b) ~~DRY up skill tag rendering~~** ✅ Done — Created `.skill-tag--link`, `.skill-tag--warning`, `.skill-tag--success`, `.skill-tag--body` utility classes in `global.css`. All hardcoded and dynamic skill tags across About, Projects, Project detail, BlogCard, ProjectCard, TimelineEntry, and experience pages now use these classes via `class:list` mappings instead of inline `style` attributes.
 
-**c) Extract timeline tech colors into CSS variables**
-The inline `style={techColors && techColors[i] ? ...}` pattern is verbose. CSS custom properties per tech category would be cleaner.
+**c) ~~Extract timeline tech colors into CSS variables~~** ✅ Done — Created `techColorToClass` mapping objects in ProjectCard, Project detail, TimelineEntry, and Projects pages that map dynamic `var(--color-*)` values to the `.skill-tag--{color}` CSS classes. Replaced all `style={techColors && techColors[i] ? ...}` template literal patterns with `class:list` declarations.
 
-**d) Add TypeScript to Astro components**
-The `Button.astro` uses `target={target as any}` which suppresses type checking. Proper typing would catch errors earlier.
+**d) ~~Add TypeScript to Astro components~~** ✅ Done — Replaced `target={target as any}` in `Button.astro` with `target={target as string | undefined}` (more type-safe). Added explicit `string` type to `assetPath` parameter in `Layout.astro`. Replaced unsafe `as string` casts on `null` social link fields (`link.target`, `link.rel`) in `about.astro` and `contact.astro` with proper nullish coalescing (`?? undefined`).
 
 ---
 
