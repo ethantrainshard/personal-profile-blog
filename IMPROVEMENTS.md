@@ -109,8 +109,7 @@ While the Bugatti design is intentionally dark-only, a toggle could be added for
 **d) Add a simple analytics integration**
 A privacy-friendly analytics script (e.g., Plausible or Umami) to track page views.
 
-**e) Add a 404 page**
-Currently there's no custom 404 page — visitors landing on a non-existent route get a generic Astro error.
+**e) ~~Add a 404 page~~** ✅ Done — New `404.astro` page with centered "404" heading, "Page Not Found" subtitle, brief body text, and "Back to Home" button. Styled with Bugatti design system CSS classes (no inline styles). Copied to `dist/404.html` by Astro static build.
 
 ---
 
@@ -122,7 +121,7 @@ Currently there's no custom 404 page — visitors landing on a non-existent rout
 | **P0** | Active nav link highlighting | Essential UX |
 | **P1** | Blog post TOC + reading time | Content usability |
 | **P1** | Structured data (JSON-LD) + sitemap | SEO |
-| **P1** | Custom 404 page | User experience |
+| ~~**P1**~~ | ~~Custom 404 page~~ | ~~User experience~~ | ✅ Done
 | **P2** | Skip-to-content link | Accessibility |
 | **P2** | Project image placeholders | Visual polish |
 | **P2** | RSS feed | Content distribution |
