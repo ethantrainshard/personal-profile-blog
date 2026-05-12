@@ -151,11 +151,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 ### B. Visual & Interaction Enhancements
 
-**f) Scroll-Triggered Entrance Animations**
-- Use Intersection Observer API (vanilla JS, no dependencies) to fade/slide sections in as user scrolls
-- Apply `ease-out` transitions — per UX best practices, linear motion feels robotic
-- Stagger animations per section (content fades in, then cards slide up)
-- Already have `prefers-reduced-motion` media query in `global.css` — respect it by disabling animations
+**f) ~~Scroll-Triggered Entrance Animations~~** ✅ Done — New `ScrollReveal.astro` wrapper component using Intersection Observer (vanilla JS, no deps). Focus areas wrapped with staggered delays per column (`ease-out` transitions). Sections fade from 30px below, staggered 0.1s apart. Respects `prefers-reduced-motion` by disabling all transitions.
 
 **g) Scroll Indicator**
 - Subtle animated chevron or "scroll" text at the bottom of the hero band
