@@ -15,9 +15,7 @@ const focusDescriptions = [
 ];
 
 const allProjects = await getCollection('projects');
-const previewProjects = allProjects
-  .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
-  .slice(0, 3);
+const featuredProject = allProjects.find(p => p.data.featured);
 ---
 
 <Layout title="Ethan Goh — Software Developer, Security Engineer, Infrastructure Architect">
@@ -56,20 +54,18 @@ const previewProjects = allProjects
     <section class="section">
       <div class="container">
         <div class="section-heading"><h2 class="display-lg">Selected Work</h2></div>
-        <p class="caption-uppercase section-subtitle">Featured Projects</p>
-        <div class="grid-2">
-          {previewProjects.map(project => (
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              techStack={project.data.techStack}
-              slug={project.slug}
-              date={project.data.date}
-              techColors={project.data.techColors}
-              visualTheme={project.data.visualTheme}
-            />
-          ))}
-        </div>
+        <p class="caption-uppercase section-subtitle">Featured Project</p>
+        {featuredProject && (
+          <ProjectCard
+            title={featuredProject.data.title}
+            description={featuredProject.data.description}
+            techStack={featuredProject.data.techStack}
+            slug={featuredProject.slug}
+            date={featuredProject.data.date}
+            techColors={featuredProject.data.techColors}
+            visualTheme={featuredProject.data.visualTheme}
+          />
+        )}
         <div class="section-link-wrapper">
           <a href="/projects" class="section-link">View All Projects</a>
         </div>
