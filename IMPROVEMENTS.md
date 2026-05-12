@@ -164,10 +164,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 **h) ~~Enhanced Glow Effect~~** ✅ Done — Added color-coded ambient glows behind each focus area column (blue for Software Development, gold for Cybersecurity, green for Infrastructure). Uses radial gradients with the existing `hero-glow-pulse` animation, `pointer-events: none`, and `opacity: 0.2`. Respects `prefers-reduced-motion`.
 
-**i) Hover Microinteractions on Focus Area Columns**
-- Add `cursor-pointer` and subtle `border-color` transition on the 3 focus area columns
-- Make them feel interactive — wrap columns in `<a>` tags linking to `/projects` filtered by category
-- Add `transition: border-color 0.2s ease-out` consistent with existing card hover behavior
+**i) ~~Hover Microinteractions on Focus Area Columns~~** ✅ Done — Focus area columns wrapped in `<a>` tags linking to best-matching project pages (mappings in `focusAreaLinks` config). Added `cursor-pointer`, `border-color` transition on hover, `focus-visible` outline for keyboard nav, and `prefers-reduced-motion` support.
 
 ### C. Recommended Page Structure (Top to Bottom)
 
