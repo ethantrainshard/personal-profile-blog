@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import { heroSubtitle, focusAreas } from '../config';
+import { heroSubtitle, focusAreas, focusAreaLinks } from '../config';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
 const glowColorClasses = ['focus-glow--link', 'focus-glow--warning', 'focus-glow--success'];
@@ -32,11 +32,11 @@ const focusDescriptions = [
     <div class="container">
       <div class="grid-3">
         {focusAreas.map((area, i) => (
-          <div class="focus-column">
+          <a href={focusAreaLinks[i]} class="focus-column" aria-label={`Learn more about ${area}`}>
             <div class:list={['focus-glow', glowColorClasses[i]]}></div>
             <h2 class:list={['title-md', focusColorClasses[i]]}>{area}</h2>
             <p class="body-md">{focusDescriptions[i]}</p>
-          </div>
+          </a>
         ))}
       </div>
     </div>

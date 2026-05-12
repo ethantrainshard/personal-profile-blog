@@ -79,3 +79,9 @@ export const skills = {
     ],
   },
 } as const;
+
+export const focusAreaLinks = [
+  '/projects/vaultguard',
+  '/projects/netsentinel',
+  '/projects/cloudforge',
+] as const;
