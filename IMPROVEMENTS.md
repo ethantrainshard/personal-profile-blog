@@ -113,6 +113,107 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 ---
 
+---
+
+## 9. Home Page Enhancements
+
+### A. Content Additions
+
+**a) Featured Projects Preview**
+- Pull 2-3 showcase projects from `/projects` using the existing `ProjectCard` component
+- Gives visitors a tangible sense of work quality and encourages clicking into project detail pages
+- Section heading: "SELECTED WORK" using existing `.section-heading` class with 40px ice-blue underline accent
+- Each card links to the full project page
+
+**b) Recent Blog Posts Preview**
+- Pull 2-3 latest posts from `/blog` using the existing `BlogCard` component
+- Signals active thought leadership and gives a reason to visit the blog
+- Section heading: "LATEST WRITING"
+- Each card links to the full blog post
+
+**c) Stats / Social Proof Bar**
+- A thin horizontal bar between hero and focus areas displaying 3-4 key metrics
+- Uses `caption-uppercase` typography (JetBrains Mono, 11px, uppercase, 2px tracking) for consistency with the Bugatti design system
+- Metrics divided by hairline (`1px solid var(--color-hairline)`) separators
+- Suggested metrics: years of experience, projects delivered, certifications held, open source contributions
+- Section heading: "AT A GLANCE"
+
+**d) Skills / Tech Stack Cloud**
+- Grouped by the 3 focus areas using existing `.skill-tag` components
+- Color-coded: blue for development, gold for cybersecurity, green for infrastructure
+- Shows depth of expertise at a glance without forcing visitors to navigate to `/about`
+- Entire section links to `/about` for full skills breakdown
+
+**e) Closing CTA Band**
+- A final section before the page closes with a strong call to action
+- "Let's work together" or "Get in touch" with link to `/contact`
+- Maintains the dark, minimal aesthetic — transparent text with outline button
+
+### B. Visual & Interaction Enhancements
+
+**f) Scroll-Triggered Entrance Animations**
+- Use Intersection Observer API (vanilla JS, no dependencies) to fade/slide sections in as user scrolls
+- Apply `ease-out` transitions — per UX best practices, linear motion feels robotic
+- Stagger animations per section (content fades in, then cards slide up)
+- Already have `prefers-reduced-motion` media query in `global.css` — respect it by disabling animations
+
+**g) Scroll Indicator**
+- Subtle animated chevron or "scroll" text at the bottom of the hero band
+- Disappears on scroll (CSS opacity transition)
+- Signals there's more content below, reducing bounce rate
+
+**h) ~~Enhanced Glow Effect~~** ✅ Done — Added color-coded ambient glows behind each focus area column (blue for Software Development, gold for Cybersecurity, green for Infrastructure). Uses radial gradients with the existing `hero-glow-pulse` animation, `pointer-events: none`, and `opacity: 0.2`. Respects `prefers-reduced-motion`.
+
+**i) Hover Microinteractions on Focus Area Columns**
+- Add `cursor-pointer` and subtle `border-color` transition on the 3 focus area columns
+- Make them feel interactive — wrap columns in `<a>` tags linking to `/projects` filtered by category
+- Add `transition: border-color 0.2s ease-out` consistent with existing card hover behavior
+
+### C. Recommended Page Structure (Top to Bottom)
+
+```
+[Hero Band — full viewport, glow pulse, CTAs]
+  └─ scroll indicator (subtle, fades on scroll)
+
+[Stats Bar — 3-4 metrics, hairline dividers]
+  └─ entrance animation on scroll
+
+[Focus Areas — 3 columns with hover effects + color-coded glows]
+  └─ clickable cards linking to filtered projects
+
+[Featured Projects — 2-3 ProjectCards]
+  └─ "VIEW ALL PROJECTS" text link
+
+[Recent Blog Posts — 2-3 BlogCards]
+  └─ "READ MORE POSTS" text link
+
+[Closing CTA — "Get in touch" → /contact]
+```
+
+### D. Implementation Notes
+
+- All new content can reuse existing CSS classes and Astro components (`ProjectCard`, `BlogCard`, `skill-tag`, `.section-heading`, `.card`, `.card-link`)
+- No new dependencies needed — scroll animations via vanilla Intersection Observer
+- Design system is already aligned (Bugatti-inspired: pure black canvas, white type, minimal chrome)
+- The `prefers-reduced-motion` media query is already in `global.css` line 1545
+- Existing `getCollection` API in Astro can fetch projects and blog posts for preview sections
+- The `.skill-tag--link`, `.skill-tag--warning`, `.skill-tag--success` utility classes are already defined
+
+### E. Priority Summary
+
+| Priority | Enhancement | Effort | Impact |
+|---|---|---|---|
+| **P0** | Featured Projects preview | Low — reuses ProjectCard | High — shows work quality |
+| **P0** | Scroll-triggered entrance animations | Low — vanilla JS, CSS transitions | High — adds life to the page |
+| **P1** | Stats bar | Low — static content, CSS layout | Medium — builds credibility |
+| **P1** | Recent Blog Posts preview | Low — reuses BlogCard | Medium — signals content depth |
+| **P2** | Hover effects on focus areas | Low — CSS + wrap in `<a>` | Medium — improves interactivity |
+| **P2** | Scroll indicator | Low — CSS animation | Low — subtle navigation guidance |
+| **P3** | Closing CTA band | Low — text + button | Medium — drives conversions |
+| **P3** | Enhanced color-coded glows | Medium — new CSS keyframes | Low — aesthetic polish |
+
+---
+
 ## Priority Summary
 
 | Priority | Improvement | Impact |
