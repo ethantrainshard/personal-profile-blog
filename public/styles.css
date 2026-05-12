@@ -1364,6 +1364,37 @@ button {
   color: var(--color-success);
 }
 
+/* Focus area ambient glows */
+.focus-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+  animation: hero-glow-pulse 8s ease-in-out infinite;
+}
+
+.focus-glow--link {
+  background: radial-gradient(ellipse, var(--color-link) 0%, transparent 60%);
+}
+
+.focus-glow--warning {
+  background: radial-gradient(ellipse, var(--color-warning) 0%, transparent 60%);
+}
+
+.focus-glow--success {
+  background: radial-gradient(ellipse, var(--color-success) 0%, transparent 60%);
+}
+
+/* Focus column wrapper */
+.focus-column {
+  position: relative;
+}
+
 /* Body strong color */
 .body-strong {
   color: var(--color-body-strong);

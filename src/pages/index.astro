@@ -4,6 +4,12 @@ import Button from '../components/Button.astro';
 import { heroSubtitle, focusAreas } from '../config';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
+const glowColorClasses = ['focus-glow--link', 'focus-glow--warning', 'focus-glow--success'];
+const focusDescriptions = [
+  'Full-stack application development with modern frameworks, clean architecture, and test-driven practices.',
+  'Application security, penetration testing, vulnerability assessment, and security-first development methodologies.',
+  'Cloud architecture, CI/CD pipelines, containerization, and infrastructure as code for reliable deployments.',
+];
 ---
 
 <Layout title="Ethan Goh — Software Developer, Security Engineer, Infrastructure Architect">
@@ -26,9 +32,10 @@ const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-c
     <div class="container">
       <div class="grid-3">
         {focusAreas.map((area, i) => (
-          <div>
+          <div class="focus-column">
+            <div class:list={['focus-glow', glowColorClasses[i]]}></div>
             <h2 class:list={['title-md', focusColorClasses[i]]}>{area}</h2>
-            <p class="body-md">{['Full-stack application development with modern frameworks, clean architecture, and test-driven practices.', 'Application security, penetration testing, vulnerability assessment, and security-first development methodologies.', 'Cloud architecture, CI/CD pipelines, containerization, and infrastructure as code for reliable deployments.'][i]}</p>
+            <p class="body-md">{focusDescriptions[i]}</p>
           </div>
         ))}
       </div>
