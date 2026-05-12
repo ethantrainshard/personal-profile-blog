@@ -1615,6 +1615,31 @@ button {
   margin-bottom: var(--spacing-md);
 }
 
+/* Section link */
+.section-link-wrapper {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.section-link {
+  color: var(--color-link);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+.section-link:hover {
+  color: var(--color-on-dark);
+}
+
+.section-link:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
 /* ============================================
    REDUCED MOTION
    ============================================ */

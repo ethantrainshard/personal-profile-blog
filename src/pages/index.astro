@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import { heroSubtitle, focusAreas, focusAreaLinks } from '../config';
+import { getCollection } from 'astro:content';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
 const glowColorClasses = ['focus-glow--link', 'focus-glow--warning', 'focus-glow--success'];
@@ -11,6 +13,11 @@ const focusDescriptions = [
   'Application security, penetration testing, vulnerability assessment, and security-first development methodologies.',
   'Cloud architecture, CI/CD pipelines, containerization, and infrastructure as code for reliable deployments.',
 ];
+
+const allProjects = await getCollection('projects');
+const previewProjects = allProjects
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured))
+  .slice(0, 3);
 ---
 
 <Layout title="Ethan Goh — Software Developer, Security Engineer, Infrastructure Architect">
@@ -40,6 +47,31 @@ const focusDescriptions = [
               <p class="body-md">{focusDescriptions[i]}</p>
             </a>
           ))}
+        </div>
+      </div>
+    </section>
+  </ScrollReveal>
+
+  <ScrollReveal>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><h2 class="display-lg">Selected Work</h2></div>
+        <p class="caption-uppercase section-subtitle">Featured Projects</p>
+        <div class="grid-2">
+          {previewProjects.map(project => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              techStack={project.data.techStack}
+              slug={project.slug}
+              date={project.data.date}
+              techColors={project.data.techColors}
+              visualTheme={project.data.visualTheme}
+            />
+          ))}
+        </div>
+        <div class="section-link-wrapper">
+          <a href="/projects" class="section-link">View All Projects</a>
         </div>
       </div>
     </section>
