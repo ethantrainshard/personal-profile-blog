@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
 import { heroSubtitle, focusAreas, focusAreaLinks } from '../config';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
@@ -28,17 +29,19 @@ const focusDescriptions = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="grid-3">
-        {focusAreas.map((area, i) => (
-          <a href={focusAreaLinks[i]} class="focus-column" aria-label={`Learn more about ${area}`}>
-            <div class:list={['focus-glow', glowColorClasses[i]]}></div>
-            <h2 class:list={['title-md', focusColorClasses[i]]}>{area}</h2>
-            <p class="body-md">{focusDescriptions[i]}</p>
-          </a>
-        ))}
+  <ScrollReveal>
+    <section class="section">
+      <div class="container">
+        <div class="grid-3">
+          {focusAreas.map((area, i) => (
+            <a href={focusAreaLinks[i]} class:list={['focus-column', 'animate-on-scroll', `animate-delay-${i}`]} aria-label={`Learn more about ${area}`}>
+              <div class:list={['focus-glow', glowColorClasses[i]]}></div>
+              <h2 class:list={['title-md', focusColorClasses[i]]}>{area}</h2>
+              <p class="body-md">{focusDescriptions[i]}</p>
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </ScrollReveal>
 </Layout>
