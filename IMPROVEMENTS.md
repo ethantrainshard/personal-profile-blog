@@ -119,7 +119,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 ### A. Content Additions
 
-**a) ~~Featured Projects Preview~~** ✅ Done — Home page shows the single featured project from content collection via `getCollection` using existing `ProjectCard` component. Section heading "Selected Work" uses `.section-heading` class. "View All Projects" text link (`.section-link`) directs to `/projects`. Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
+**a) ~~Featured Projects Preview~~** ✅ Done — Home page shows the single featured project in a 2-column horizontal split layout (content left, gradient image right). Uses shared `.featured-project` CSS extracted to `global.css` from `projects.astro`. Section heading "Selected Work" uses `.section-heading` class. "View All Projects" text link (`.section-link`) directs to `/projects`. Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
 
 **b) Recent Blog Posts Preview**
 - Pull 2-3 latest posts from `/blog` using the existing `BlogCard` component

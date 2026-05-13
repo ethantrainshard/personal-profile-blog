@@ -59,8 +59,7 @@ const techColorToClass: Record<string, string> = {
   <ScrollReveal>
     <section class="section">
       <div class="container">
-        <div class="section-heading"><h2 class="display-lg">Selected Work</h2></div>
-        <p class="caption-uppercase section-subtitle">Featured Project</p>
+        <div class="section-heading"><h2 class="display-lg">Featured Project</h2></div>
         <div class="featured-project-wrapper">
         {featuredProject && (
           <a href={`/projects/${featuredProject.slug}`} class:list={['featured-project', 'cursor-pointer', 'focus-visible-pointer']} aria-label={`View project: ${featuredProject.data.title}`}>
