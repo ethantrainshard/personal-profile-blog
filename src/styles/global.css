@@ -1677,8 +1677,23 @@ button {
 }
 
 /* ============================================
-   REDUCED MOTION
-   ============================================ */
+    CTA BAND
+    ============================================ */
+
+.cta-band {
+  text-align: center;
+  padding-top: var(--spacing-xxl);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.cta-band-body {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ============================================
+    REDUCED MOTION
+    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
   *,
