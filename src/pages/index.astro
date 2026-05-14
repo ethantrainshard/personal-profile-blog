@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import BlogCard from '../components/BlogCard.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import { heroSubtitle, focusAreas, focusAreaLinks } from '../config';
 import { getCollection } from 'astro:content';
@@ -15,6 +16,10 @@ const focusDescriptions = [
 
 const allProjects = await getCollection('projects');
 const featuredProject = allProjects.find(p => p.data.featured);
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const recentPosts = sortedPosts.slice(0, 2);
 
 const techColorToClass: Record<string, string> = {
   'var(--color-link)': 'skill-tag--link',
@@ -96,6 +101,31 @@ const techColorToClass: Record<string, string> = {
         </div>
         <div class="section-link-wrapper">
           <a href="/projects" class="section-link">View All Projects</a>
+        </div>
+      </div>
+    </section>
+  </ScrollReveal>
+
+<ScrollReveal>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><h2 class="display-lg">Latest Writing</h2></div>
+
+        <div class="grid-2">
+          {recentPosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              slug={post.slug}
+              date={post.data.date}
+              category={post.data.category}
+              readingTime={post.data.readingTime}
+            />
+          ))}
+        </div>
+
+        <div class="section-link-wrapper">
+          <a href="/blog" class="section-link">Read More Posts</a>
         </div>
       </div>
     </section>
