@@ -121,11 +121,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 **a) ~~Featured Projects Preview~~** ✅ Done — Home page shows the single featured project in a 2-column horizontal split layout (content left, gradient image right). Uses shared `.featured-project` CSS extracted to `global.css` from `projects.astro`. Section heading "Selected Work" uses `.section-heading` class. "View All Projects" text link (`.section-link`) directs to `/projects`. Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
 
-**b) Recent Blog Posts Preview**
-- Pull 2-3 latest posts from `/blog` using the existing `BlogCard` component
-- Signals active thought leadership and gives a reason to visit the blog
-- Section heading: "LATEST WRITING"
-- Each card links to the full blog post
+**b) ~~Recent Blog Posts Preview~~** ✅ Done — Home page pulls 2 latest blog posts sorted by date (descending) using `getCollection('blog')`. Renders in `.grid-2` layout using existing `BlogCard` component. Section heading "Latest Writing" uses `.section-heading` class. "Read More Posts" text link (`.section-link`) directs to `/blog`. Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
 
 **c) Stats / Social Proof Bar**
 - A thin horizontal bar between hero and focus areas displaying 3-4 key metrics
