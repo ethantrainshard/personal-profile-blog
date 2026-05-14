@@ -43,7 +43,28 @@ const techColorToClass: Record<string, string> = {
         <Button text="Read Blog" href="/blog" variant="secondary" />
       </div>
     </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 7L10 12L15 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="scroll-indicator-text">Scroll</span>
+    </div>
   </section>
+
+  <script client:load>
+    const indicator = document.querySelector('.scroll-indicator');
+    if (indicator) {
+      const hideOnScroll = () => {
+        if (window.scrollY > 100) {
+          indicator.classList.add('hidden');
+        } else {
+          indicator.classList.remove('hidden');
+        }
+      };
+      window.addEventListener('scroll', hideOnScroll, { passive: true });
+      hideOnScroll();
+    }
+  </script>
 
   <ScrollReveal>
     <section class="section">

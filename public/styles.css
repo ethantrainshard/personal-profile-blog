@@ -1215,6 +1215,57 @@ button {
   flex-wrap: wrap;
 }
 
+/* Scroll indicator at bottom of hero */
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: scroll-bounce 2s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 0.4s ease-out;
+  pointer-events: none;
+}
+
+.scroll-indicator.hidden {
+  opacity: 0;
+}
+
+.scroll-indicator svg {
+  color: var(--color-link);
+}
+
+.scroll-indicator-text {
+  color: var(--color-muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator {
+    animation: none;
+    opacity: 1;
+  }
+  .scroll-indicator.hidden {
+    opacity: 1;
+  }
+}
+
 /* Flex utilities */
 .flex-center {
   display: flex;
