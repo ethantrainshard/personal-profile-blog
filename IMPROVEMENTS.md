@@ -136,19 +136,13 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 - Shows depth of expertise at a glance without forcing visitors to navigate to `/about`
 - Entire section links to `/about` for full skills breakdown
 
-**e) Closing CTA Band**
-- A final section before the page closes with a strong call to action
-- "Let's work together" or "Get in touch" with link to `/contact`
-- Maintains the dark, minimal aesthetic — transparent text with outline button
+**e) ~~Closing CTA Band~~** ✅ Done — Final section before page ends with "Let's Work Together" heading (`.display-lg`), body text ("Have a project in mind? I'd love to hear about it."), and primary outline `Button` linking to `/contact`. Centered layout with hairline top border (`.cta-band` CSS). Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
 
 ### B. Visual & Interaction Enhancements
 
 **f) ~~Scroll-Triggered Entrance Animations~~** ✅ Done — New `ScrollReveal.astro` wrapper component using Intersection Observer (vanilla JS, no deps). Focus areas wrapped with staggered delays per column (`ease-out` transitions). Sections fade from 30px below, staggered 0.1s apart. Respects `prefers-reduced-motion` by disabling all transitions.
 
-**g) Scroll Indicator**
-- Subtle animated chevron or "scroll" text at the bottom of the hero band
-- Disappears on scroll (CSS opacity transition)
-- Signals there's more content below, reducing bounce rate
+**g) ~~Scroll Indicator~~** ✅ Done — Animated chevron with "Scroll" text at bottom of hero band. Gentle bounce animation (`@keyframes scroll-bounce`, 2s cycle). Fades out on scroll (>100px) via `.hidden` class with CSS opacity transition. Respects `prefers-reduced-motion` by disabling animation and hide behavior.
 
 **h) ~~Enhanced Glow Effect~~** ✅ Done — Added color-coded ambient glows behind each focus area column (blue for Software Development, gold for Cybersecurity, green for Infrastructure). Uses radial gradients with the existing `hero-glow-pulse` animation, `pointer-events: none`, and `opacity: 0.2`. Respects `prefers-reduced-motion`.
 
@@ -194,7 +188,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 | **P1** | Recent Blog Posts preview | Low — reuses BlogCard | Medium — signals content depth |
 | **P2** | Hover effects on focus areas | Low — CSS + wrap in `<a>` | Medium — improves interactivity |
 | **P2** | Scroll indicator | Low — CSS animation | Low — subtle navigation guidance |
-| **P3** | Closing CTA band | Low — text + button | Medium — drives conversions |
+| ~~**P3**~~ | ~~Closing CTA band~~ | ~~Low — text + button~~ | ~~Medium — drives conversions~~ | ✅ Done
 | **P3** | Enhanced color-coded glows | Medium — new CSS keyframes | Low — aesthetic polish |
 
 ---
