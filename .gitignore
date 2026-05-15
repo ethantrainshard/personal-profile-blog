@@ -22,3 +22,11 @@ Thumbs.db
 .idea
 *.swp
 *.swo
+
+# Python
+__pycache__
+*.pyc
+
+# Project docs
+JOB_DESCRIPTION.md
+IMPROVEMENTS.md
