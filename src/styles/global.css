@@ -1583,6 +1583,23 @@ button {
   margin-bottom: var(--spacing-md);
 }
 
+/* Timeline bullet points */
+.timeline-bullets {
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-lg);
+  list-style: disc;
+}
+
+.timeline-bullets li {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-body);
+  line-height: var(--line-height-base);
+}
+
+.timeline-bullets li:last-child {
+  margin-bottom: 0;
+}
+
 /* Project feature list */
 .feature-item {
   margin-bottom: var(--spacing-sm);

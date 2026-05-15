@@ -11,43 +11,94 @@ import TimelineEntry from '../components/TimelineEntry.astro';
 
       <div class="timeline">
         <TimelineEntry
-          date="2022 — Present"
-          title="Senior Security Engineer"
-          company="TechCorp International"
+          date="Mar 2025 — Present"
+          title="Manager, Cybersecurity Platform AP"
+          company="IBM"
           location="Singapore"
-          description="Leading application security initiatives across the organization. Designing and implementing security controls for cloud-native microservices architecture. Conducting penetration tests and red team assessments. Mentoring junior engineers on secure coding practices and threat modeling."
-          technologies={['Python', 'Go', 'AWS', 'Terraform', 'Kubernetes', 'OWASP', 'Burp Suite']}
-          techColors={['var(--color-link)', 'var(--color-link)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-warning)']}
+          description="Leading the planning, architecture, and lifecycle management of enterprise infrastructure for the AP region. Driving automation and modernization to improve resilience, scalability, and security posture while mentoring a team of infrastructure engineers."
+          bulletPoints={[
+            'Define and enforce infrastructure standards and policies aligned with CISO security directives',
+            'Integrate security controls across all infrastructure layers — network, compute, storage, and cloud',
+            'Lead vulnerability management and patching programs across the infrastructure estate',
+            'Partner with SOC and incident response teams for rapid threat detection and recovery',
+            'Conduct risk assessments and present remediation plans to executive stakeholders',
+            'Manage and mentor infrastructure engineers, fostering continuous learning on emerging threats',
+          ]}
+          technologies={['Python', 'Project Management', 'AI', 'IBM Cloud', 'OpenShift', 'Team Management']}
+          techColors={['var(--color-link)', 'var(--color-body)', 'var(--color-warning)', 'var(--color-success)', 'var(--color-success)', 'var(--color-body)']}
         />
 
         <TimelineEntry
-          date="2019 — 2022"
-          title="DevOps Engineer"
-          company="CloudScale Solutions"
-          location="Remote"
-          description="Designed and maintained CI/CD pipelines serving 50+ microservices. Migrated legacy infrastructure to cloud-native architecture using Kubernetes and Terraform. Implemented comprehensive monitoring and alerting systems. Reduced deployment time by 75% and improved system reliability to 99.95% uptime."
-          technologies={['Docker', 'Kubernetes', 'Jenkins', 'Ansible', 'Azure', 'Prometheus', 'Grafana']}
-          techColors={['var(--color-success)', 'var(--color-success)', 'var(--color-body)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)', 'var(--color-success)']}
+          date="Jan 2022 — Mar 2025"
+          title="Back End Developer"
+          company="IBM"
+          location="Singapore"
+          description="Designed and developed scalable backend services and microservices supporting cybersecurity platforms. Embedded security best practices throughout the development lifecycle and collaborated with security teams to harden backend systems."
+          bulletPoints={[
+            'Developed REST and microservices supporting cybersecurity platforms and workflows',
+            'Integrated with SIEMs, SOAR platforms, IAM systems, and vulnerability management tools',
+            'Followed IBM secure software development lifecycle (SSDLC) standards',
+            'Embedded security practices — input validation, secrets management, auth, and encryption',
+            'Collaborated with penetration testing and red teams to harden backend systems',
+            'Implemented observability — structured logging, distributed tracing, and metrics',
+            'Supported incident response with rapid diagnostics and root cause analysis',
+          ]}
+          technologies={['Python']}
+          techColors={['var(--color-link)']}
         />
 
         <TimelineEntry
-          date="2017 — 2019"
-          title="Software Developer"
-          company="DataStream Technologies"
+          date="Dec 2020 — Jan 2022"
+          title="Cyber Security Command Center Analyst"
+          company="IBM"
           location="Singapore"
-          description="Developed full-stack web applications serving 100K+ users. Built RESTful APIs and real-time data processing pipelines. Implemented security features including OAuth2, JWT authentication, and data encryption. Collaborated with cross-functional teams in an Agile environment."
-          technologies={['JavaScript', 'TypeScript', 'Node.js', 'React', 'PostgreSQL', 'Redis']}
-          techColors={['var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)', 'var(--color-link)']}
+          description="Analyzed and investigated security events, incidents, and threats to IBM-owned or managed systems. Collaborated with global teams and presented critical cases to the CISO leadership team."
+          bulletPoints={[
+            'Analyzed reported events, incidents, and threats to IBM-owned systems',
+            'Classified and investigated cases to determine data leakage and loss',
+            'Presented high severity and critical cases to CISO Leadership team',
+            'Followed up with Incident Response Coordinator for end-to-end case closure',
+            'Communicated with CSIRT to improve policies and frameworks for efficient workflow',
+            'Provided management reporting on trend analysis and case metrics',
+          ]}
+          technologies={['Cybersecurity']}
+          techColors={['var(--color-warning)']}
         />
 
         <TimelineEntry
-          date="2015 — 2017"
-          title="Junior Systems Administrator"
-          company="NetGuard Systems"
+          date="Oct 2019 — Nov 2020"
+          title="Security Analyst"
+          company="Klook"
           location="Singapore"
-          description="Managed Linux and Windows server infrastructure for enterprise clients. Automated routine system administration tasks using shell scripting and Python. Assisted in security audits and compliance implementations. Maintained 99.9% infrastructure availability."
-          technologies={['Linux', 'Bash', 'Python', 'Nginx', 'iptables', 'Wireshark']}
-          techColors={['var(--color-success)', 'var(--color-body)', 'var(--color-link)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-warning)']}
+          description="Performed security reviews and real-time investigations to identify and remediate threats. Built security incident playbooks and organized cyber exercises including phishing campaigns."
+          bulletPoints={[
+            'Performed security reviews of application, infrastructure, network, and database logs',
+            'Analyzed security alerts for vulnerabilities, DoS attacks, malware, and data breaches',
+            'Conducted real-time investigations for triage, containment, and remediation',
+            'Designed security incident playbooks and operating procedures',
+            'Stayed current with threat landscape and evolving attack techniques',
+            'Organized cyber exercises for phishing campaigns and security drills',
+          ]}
+          technologies={['Cybersecurity']}
+          techColors={['var(--color-warning)']}
+        />
+
+        <TimelineEntry
+          date="Oct 2017 — Oct 2019"
+          title="Analyst"
+          company="MUFG"
+          location="Singapore"
+          description="Performed security event monitoring and analyzed cyber threat intelligence to identify indicators of compromise. Executed incident response procedures and conducted malware triage."
+          bulletPoints={[
+            'Monitored security events for malware, vulnerability exploits, DoS, and cyber-attacks',
+            'Analyzed cyber threat intelligence to identify Indicators of Compromise (IOCs)',
+            'Correlated security events from tools and infrastructure devices via log monitoring',
+            'Initiated malware triage processes to assess threat types and severity',
+            'Tracked vulnerability management and remediation from penetration testing',
+            'Executed cyber incident response procedures for timely response',
+          ]}
+          technologies={['Cybersecurity', 'Vulnerability Assessment']}
+          techColors={['var(--color-warning)', 'var(--color-warning)']}
         />
       </div>
     </div>

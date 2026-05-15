@@ -5,11 +5,12 @@ interface Props {
   company: string;
   location?: string;
   description: string;
+  bulletPoints?: string[];
   technologies?: string[];
   techColors?: string[];
 }
 
-const { date, title, company, location, description, technologies, techColors } = Astro.props;
+const { date, title, company, location, description, bulletPoints, technologies, techColors } = Astro.props;
 
 const locationText = location ? ` \u2014 ${location}` : '';
 
@@ -26,6 +27,13 @@ const techColorToClass: Record<string, string> = {
   <h3 class="title-md timeline-title">{title}</h3>
   <p class="body-md timeline-company">{company}{locationText}</p>
   <p class="body-md timeline-description">{description}</p>
+  {bulletPoints && bulletPoints.length > 0 && (
+    <ul class="timeline-bullets">
+      {bulletPoints.map((point) => (
+        <li class="body-md">{point}</li>
+      ))}
+    </ul>
+  )}
   {technologies && technologies.length > 0 && (
     <div class="skill-list">
       {technologies.map((tech, i) => (
