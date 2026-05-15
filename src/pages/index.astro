@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import BlogCard from '../components/BlogCard.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
-import { heroSubtitle, focusAreas, focusAreaLinks } from '../config';
+import { heroSubtitle, focusAreas, focusAreaLinks, stats } from '../config';
 import { getCollection } from 'astro:content';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
@@ -65,6 +65,21 @@ const techColorToClass: Record<string, string> = {
       hideOnScroll();
     }
   </script>
+
+  <ScrollReveal>
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-bar-inner">
+          {stats.map(stat => (
+            <div class="stat-item">
+              <div class="stat-value">{stat.value}</div>
+              <div class="stat-label">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </ScrollReveal>
 
   <ScrollReveal>
     <section class="section">

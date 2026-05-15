@@ -85,3 +85,8 @@ export const focusAreaLinks = [
   '/projects/netsentinel',
   '/projects/cloudforge',
 ] as const;
+
+export const stats = [
+  { label: 'Years of Experience', value: '5+' },
+  { label: 'LinkedIn Connections', value: '500+' },
+] as const;
