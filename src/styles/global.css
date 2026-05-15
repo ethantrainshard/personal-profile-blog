@@ -1741,11 +1741,13 @@ button {
   justify-content: center;
   align-items: stretch;
   gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .stat-item {
-  flex: 1;
-  max-width: 300px;
+  flex: 0 0 auto;
+  width: 340px;
   padding: var(--spacing-xl) var(--spacing-lg);
   text-align: center;
   border-right: 1px solid var(--color-hairline);
