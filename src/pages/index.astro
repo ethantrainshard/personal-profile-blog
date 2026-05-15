@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import BlogCard from '../components/BlogCard.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
-import { heroSubtitle, focusAreas, focusAreaLinks, stats } from '../config';
+import { heroSubtitle, focusAreas, stats } from '../config';
 import { getCollection } from 'astro:content';
 
 const focusColorClasses = ['focus-color--link', 'focus-color--warning', 'focus-color--success'];
@@ -86,9 +86,9 @@ const techColorToClass: Record<string, string> = {
       <div class="container">
         <div class="grid-3">
           {focusAreas.map((area, i) => (
-            <a href={focusAreaLinks[i]} class:list={['focus-column', 'animate-on-scroll', `animate-delay-${i}`]} aria-label={`Learn more about ${area}`}>
+            <a href={area.href} class:list={['focus-column', 'animate-on-scroll', `animate-delay-${i}`]} aria-label={`Learn more about ${area.label}`}>
               <div class:list={['focus-glow', glowColorClasses[i]]}></div>
-              <h2 class:list={['title-md', focusColorClasses[i]]}>{area}</h2>
+              <h2 class:list={['title-md', focusColorClasses[i]]}>{area.label}</h2>
               <p class="body-md">{focusDescriptions[i]}</p>
             </a>
           ))}

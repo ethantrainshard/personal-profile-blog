@@ -20,9 +20,9 @@ export const socialLinks = [
 ] as const;
 
 export const focusAreas = [
-  'Software Development',
-  'Cybersecurity',
-  'Infrastructure',
+  { label: 'Software Development', href: '/projects/vaultguard' },
+  { label: 'Cybersecurity', href: '/projects/netsentinel' },
+  { label: 'Infrastructure', href: '/projects/cloudforge' },
 ] as const;
 
 export const heroSubtitle = 'Software Development · Cybersecurity · Infrastructure';
@@ -80,11 +80,6 @@ export const skills = {
   },
 } as const;
 
-export const focusAreaLinks = [
-  '/projects/vaultguard',
-  '/projects/netsentinel',
-  '/projects/cloudforge',
-] as const;
 
 export const stats = [
   { label: 'Years of Experience', value: '5+' },
