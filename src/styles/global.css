@@ -1732,29 +1732,35 @@ button {
     ============================================ */
 
 .stats-bar {
-  border-top: 1px solid var(--color-hairline);
-  border-bottom: 1px solid var(--color-hairline);
+  padding: var(--spacing-xl) 0;
 }
 
 .stats-bar-inner {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  gap: 0;
-  max-width: 720px;
+  gap: var(--spacing-lg);
+  max-width: 580px;
   margin: 0 auto;
 }
 
 .stat-item {
   flex: 0 0 auto;
-  width: 340px;
-  padding: var(--spacing-xl) var(--spacing-lg);
+  width: 260px;
+  padding: var(--spacing-lg) var(--spacing-md);
   text-align: center;
-  border-right: 1px solid var(--color-hairline);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-hairline);
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.stat-item:hover {
+  border-color: var(--color-hairline-strong);
 }
 
 .stat-item:last-child {
-  border-right: none;
+  border-right: 1px solid var(--color-hairline);
 }
 
 .stat-value {
@@ -1779,24 +1785,13 @@ button {
 @media (max-width: 640px) {
   .stats-bar-inner {
     flex-wrap: wrap;
+    gap: var(--spacing-md);
   }
 
   .stat-item {
-    flex: 1 1 50%;
-    min-width: 50%;
-  }
-
-  .stat-item:nth-child(2) {
-    border-right: none;
-  }
-
-  .stat-item:nth-child(1),
-  .stat-item:nth-child(2) {
-    border-bottom: 1px solid var(--color-hairline);
-  }
-
-  .stat-item:nth-child(2) {
-    border-bottom: 1px solid var(--color-hairline);
+    flex: 1 1 calc(50% - var(--spacing-md) / 2);
+    min-width: 0;
+    width: auto;
   }
 }
 
