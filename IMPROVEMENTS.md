@@ -123,12 +123,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 **b) ~~Recent Blog Posts Preview~~** ✅ Done — Home page pulls 2 latest blog posts sorted by date (descending) using `getCollection('blog')`. Renders in `.grid-2` layout using existing `BlogCard` component. Section heading "Latest Writing" uses `.section-heading` class. "Read More Posts" text link (`.section-link`) directs to `/blog`. Wrapped in `ScrollReveal` for scroll-triggered entrance animation.
 
-**c) Stats / Social Proof Bar**
-- A thin horizontal bar between hero and focus areas displaying 3-4 key metrics
-- Uses `caption-uppercase` typography (JetBrains Mono, 11px, uppercase, 2px tracking) for consistency with the Bugatti design system
-- Metrics divided by hairline (`1px solid var(--color-hairline)`) separators
-- Suggested metrics: years of experience, projects delivered, certifications held, open source contributions
-- Section heading: "AT A GLANCE"
+**c) ~~Stats / Social Proof Bar~~** ✅ Done — Thin horizontal bar between hero and focus areas displaying 2 key metrics (Years of Experience: 5+, LinkedIn Connections: 500+). Uses `caption-uppercase` typography for labels and `display` font for values. Metrics divided by hairline separators. Stats data centralized in `src/config.ts`. Responsive 2-col wrap on mobile.
 
 **d) Skills / Tech Stack Cloud**
 - Grouped by the 3 focus areas using existing `.skill-tag` components
