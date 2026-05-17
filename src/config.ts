@@ -14,9 +14,9 @@ export const navLinks = [
 ] as const;
 
 export const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/ethangoh', target: '_blank', rel: 'noopener noreferrer' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/ethangoh', target: '_blank', rel: 'noopener noreferrer' },
-  { label: 'Email', href: 'mailto:hello@ethangoh.dev', target: null, rel: null },
+  { label: 'GitHub', href: 'https://github.com/ethantrainshard', target: '_blank', rel: 'noopener noreferrer' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ethan-goh-9b6615a7', target: '_blank', rel: 'noopener noreferrer' },
+  { label: 'Email', href: 'mailto:info@cyberitdad.xyz', target: null, rel: null },
 ] as const;
 
 export const focusAreas = [
