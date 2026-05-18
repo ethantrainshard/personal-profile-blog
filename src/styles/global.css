@@ -1820,6 +1820,7 @@ button {
   letter-spacing: 0;
   color: var(--color-on-dark);
   margin-bottom: var(--spacing-xs);
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
