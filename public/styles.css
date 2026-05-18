@@ -96,6 +96,28 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: var(--spacing-md);
+  z-index: 9999;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-link);
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-decoration: none;
+  transition: top 0.2s ease-out;
+}
+
+.skip-link:focus {
+  top: var(--spacing-md);
+}
+
 ul,
 ol {
   list-style: none;
@@ -120,6 +142,7 @@ button {
   letter-spacing: 0.25rem;
   text-transform: uppercase;
   color: var(--color-on-dark);
+  text-wrap: balance;
 }
 
 .display-lg {
@@ -130,6 +153,7 @@ button {
   letter-spacing: 0.1875rem;
   text-transform: uppercase;
   color: var(--color-on-dark);
+  text-wrap: balance;
 }
 
 .display-md {
@@ -140,6 +164,7 @@ button {
   letter-spacing: 0.125rem;
   text-transform: uppercase;
   color: var(--color-on-dark);
+  text-wrap: balance;
 }
 
 .display-sm {
@@ -150,6 +175,7 @@ button {
   letter-spacing: 0.09375rem;
   text-transform: uppercase;
   color: var(--color-on-dark);
+  text-wrap: balance;
 }
 
 .title-md {
@@ -189,6 +215,7 @@ button {
   line-height: 1.5;
   letter-spacing: 0;
   color: var(--color-body);
+  text-wrap: pretty;
 }
 
 .body-lg {
@@ -198,6 +225,7 @@ button {
   line-height: 1.6;
   letter-spacing: 0;
   color: var(--color-body-strong);
+  text-wrap: pretty;
 }
 
 .body-sm {
@@ -207,6 +235,7 @@ button {
   line-height: 1.5;
   letter-spacing: 0;
   color: var(--color-muted);
+  text-wrap: pretty;
 }
 
 .nav-link {
@@ -272,7 +301,7 @@ button {
   padding: 0.875rem 2rem;
   min-height: 44px;
   text-decoration: none;
-  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.1s ease-out;
   cursor: pointer;
 }
 
@@ -280,6 +309,10 @@ button {
   background-color: var(--color-on-dark);
   color: var(--color-canvas);
   border-color: var(--color-on-dark);
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn:focus-visible {
