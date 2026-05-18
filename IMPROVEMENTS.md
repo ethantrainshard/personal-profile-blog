@@ -225,20 +225,15 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 ### Phase 3: Design Polish
 
-**a) Fix `stat-item` border-radius**
-Changed `.stat-item` border-radius from `6px` to `var(--radius-none)` (0px) to align with Bugatti's binary 0px/pill radius system. No intermediate rounding allowed.
+**a) ~~Fix `stat-item` border-radius~~** ✅ Done — Changed `.stat-item` border-radius from `6px` to `var(--radius-none)` (0px) to align with Bugatti's binary 0px/pill radius system. No intermediate rounding allowed.
 
-**b) Add tabular numerals to stat values**
-Added `font-variant-numeric: tabular-nums` to `.stat-value` class to prevent number width shifting and improve alignment.
+**b) ~~Add tabular numerals to stat values~~** ✅ Done — Added `font-variant-numeric: tabular-nums` to `.stat-value` class to prevent number width shifting and improve alignment.
 
-**c) Change hero to `100dvh`**
-Changed `.hero-band` from `min-height: 100vh` to `min-height: 100dvh` to prevent iOS Safari viewport jump bug when address bar toggles.
+**c) ~~Change hero to `100dvh`~~** ✅ Done — Changed `.hero-band` from `min-height: 100vh` to `min-height: 100dvh` to prevent iOS Safari viewport jump bug when address bar toggles.
 
-**d) Remove `section + section` gradient**
-Removed the `background: linear-gradient(to bottom, var(--color-surface-soft), var(--color-canvas))` from `.section + .section`. Sections now have pure black canvas with hairline divider only, matching true flat Bugatti aesthetic.
+**d) ~~Remove `section + section` gradient~~** ✅ Done — Removed the `background: linear-gradient(to bottom, var(--color-surface-soft), var(--color-canvas))` from `.section + .section`. Sections now have pure black canvas with hairline divider only, matching true flat Bugatti aesthetic.
 
-**e) Add legal links to footer**
-Added "Privacy" and "Terms" links to the footer bottom row alongside copyright. Links point to `#` as placeholders for future dedicated pages.
+**e) ~~Add legal links to footer~~** ✅ Done — Added "Privacy" and "Terms" links to the footer bottom row alongside copyright. Links point to `#` as placeholders for future dedicated pages.
 
 ### Phase 4: Content & Features
 
