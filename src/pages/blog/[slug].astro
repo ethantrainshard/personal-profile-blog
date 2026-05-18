@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { extractToc, type TocItem } from '../../lib/toc';
+import { site } from '../../config';
 import fs from 'fs';
 import path from 'path';
 
@@ -43,9 +44,24 @@ const formattedUpdated = updated
       day: 'numeric',
     })
   : null;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: post.data.excerpt,
+  datePublished: date.toISOString(),
+  dateModified: (updated || date).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Ethan Goh',
+  },
+  mainEntityOfPage: `${site.ogUrl}blog/${post.slug}#main-content`,
+};
 ---
 
 <Layout title={`${title} — Ethan Goh`}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)}></script>
   <section class="section">
     <div class="container">
       <a href="/blog" class="nav-link page-back-link">← Back to Blog</a>
