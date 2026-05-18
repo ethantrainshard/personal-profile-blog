@@ -2,9 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import { socialLinks } from '../config';
-
-let formStatus: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
-let isSubmitting = false;
 ---
 
 <Layout title="Contact — Ethan Goh">
@@ -18,17 +15,13 @@ let isSubmitting = false;
         <div>
           <h2 class="title-md section-subheading">Send a Message</h2>
 
-          {formStatus === 'success' && (
-            <div class="alert alert-success">
-              <p class="body-md">Message sent successfully! I'll get back to you soon.</p>
-            </div>
-          )}
+          <div id="form-success" class="alert alert-success" style="display: none;">
+            <p class="body-md">Message sent successfully! I'll get back to you soon.</p>
+          </div>
 
-          {formStatus === 'error' && (
-            <div class="alert alert-warning">
-              <p class="body-md">Something went wrong. Please try again or email me directly.</p>
-            </div>
-          )}
+          <div id="form-error" class="alert alert-warning" style="display: none;">
+            <p class="body-md">Something went wrong. Please try again or email me directly.</p>
+          </div>
 
           <form
             action={`https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_FORM_ID || 'YOUR_FORM_ID'}`}
@@ -115,6 +108,8 @@ let isSubmitting = false;
 <script is:inline>
   const form = document.getElementById('contact-form');
   const submitBtn = form?.querySelector('.btn');
+  const successAlert = document.getElementById('form-success');
+  const errorAlert = document.getElementById('form-error');
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -125,6 +120,9 @@ let isSubmitting = false;
     submitBtn.classList.add('btn--loading');
     submitBtn.disabled = true;
 
+    if (successAlert) successAlert.style.display = 'none';
+    if (errorAlert) errorAlert.style.display = 'none';
+
     try {
       const response = await fetch(form.action, {
         method: 'POST',
@@ -134,12 +132,12 @@ let isSubmitting = false;
 
       if (response.ok) {
         form.reset();
-        alert('Message sent successfully!');
+        if (successAlert) successAlert.style.display = 'block';
       } else {
-        alert('Something went wrong. Please try again.');
+        if (errorAlert) errorAlert.style.display = 'block';
       }
     } catch {
-      alert('Network error. Please check your connection and try again.');
+      if (errorAlert) errorAlert.style.display = 'block';
     } finally {
       submitBtn.textContent = 'Send Message';
       submitBtn.classList.remove('btn--loading');
