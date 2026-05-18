@@ -301,7 +301,7 @@ button {
   padding: 0.875rem 2rem;
   min-height: 44px;
   text-decoration: none;
-  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.1s ease-out;
   cursor: pointer;
 }
 
@@ -309,6 +309,10 @@ button {
   background-color: var(--color-on-dark);
   color: var(--color-canvas);
   border-color: var(--color-on-dark);
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn:focus-visible {
