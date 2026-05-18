@@ -233,7 +233,9 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 
 **d) ~~Remove `section + section` gradient~~** ✅ Done — Removed the `background: linear-gradient(to bottom, var(--color-surface-soft), var(--color-canvas))` from `.section + .section`. Sections now have pure black canvas with hairline divider only, matching true flat Bugatti aesthetic.
 
-**e) ~~Add legal links to footer~~** ✅ Done — Added "Privacy" and "Terms" links to the footer bottom row alongside copyright. Links point to `#` as placeholders for future dedicated pages.
+**e) ~~Add legal links to footer~~** ✅ Done — Added "Privacy" and "Terms" links to the footer bottom row alongside copyright. Links point to `/legal#privacy` and `/legal#terms`.
+
+**f) ~~Create legal page~~** ✅ Done — New `/legal` page with both Privacy Policy and Terms of Service sections. Internal anchor TOC at top. Styled with existing Bugatti CSS classes (`.post-content`, `.section-heading`, `.section-link`). Privacy covers info collected, Formspree third-party, cookies, rights, contact. Terms covers usage, content, disclaimer, external links, Singapore governing law, contact.
 
 ### Phase 4: Content & Features
 
