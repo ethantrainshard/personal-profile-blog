@@ -50,20 +50,16 @@
 
 ## 5. Performance & SEO
 
-**a) Add structured data (JSON-LD)**
-Schema.org markup for `Person`, `Blog`, `Article`, and `CreativeWork` would improve search engine understanding of the site.
+**a) ~~Add structured data (JSON-LD)~~** ✅ Done — Added `Person` JSON-LD in `Layout.astro`, `BlogPosting` per blog post, `CreativeWork` per project, and `Blog` on blog listing.
 
-**b) Add Open Graph images**
-Currently OG meta tags have no `og:image`. Generating dynamic OG images for each blog post and project would improve social sharing.
+**b) ~~Add Open Graph images~~** ✅ Done — Added `og:image`, `og:image:alt`, and Twitter card meta tags to `Layout.astro`. Static `public/og-image.png` placeholder (1200x630).
 
-**c) Add a sitemap.xml**
-Astro can generate `sitemap.xml` automatically, which helps search engines discover all pages.
+**c) ~~Add a sitemap.xml~~** ✅ Done — Created `src/pages/sitemap.xml.js` endpoint generating sitemap with all pages, blog posts, and projects with proper dates.
 
 **d) Optimize font loading**
 The Google Fonts import uses `display=swap` but doesn't use `font-display: optional`. Adding `&display=swap` and `&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._-` subset would reduce font file size.
 
-**e) Add a robots.txt**
-A `public/robots.txt` file would explicitly allow crawling.
+**e) ~~Add a robots.txt~~** ✅ Done — Created `public/robots.txt` with `User-agent: *`, `Allow: /`, and `Sitemap: https://cyberitdad.xyz/sitemap.xml`.
 
 ---
 
@@ -193,7 +189,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 | **P0** | Content Collections for blog/projects | Foundation for scalable content |
 | **P0** | Active nav link highlighting | Essential UX |
 | **P1** | Blog post TOC + reading time | Content usability |
-| **P1** | Structured data (JSON-LD) + sitemap | SEO |
+| ~~**P1**~~ | ~~Structured data (JSON-LD) + sitemap~~ | ~~SEO~~ | ✅ Done
 | ~~**P1**~~ | ~~Custom 404 page~~ | ~~User experience~~ | ✅ Done
 | **P2** | Skip-to-content link | Accessibility |
 | **P2** | Project image placeholders | Visual polish |
