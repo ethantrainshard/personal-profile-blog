@@ -276,7 +276,6 @@ button {
 
 .section + .section {
   border-top: 1px solid var(--color-hairline);
-  background: linear-gradient(to bottom, var(--color-surface-soft), var(--color-canvas));
 }
 
 /* ============================================
