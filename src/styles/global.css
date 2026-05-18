@@ -1757,6 +1757,20 @@ button {
   text-align: center;
 }
 
+/* Legal page anchor nav */
+.legal-nav {
+  margin-bottom: var(--spacing-xxl);
+}
+
+.legal-nav-separator {
+  color: var(--color-hairline);
+}
+
+/* Back button wrapper */
+.back-btn-wrapper {
+  margin-top: var(--spacing-xxl);
+}
+
 .section-link {
   color: var(--color-link);
   font-family: var(--font-mono);
