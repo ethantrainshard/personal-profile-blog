@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import BlogCard from '../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
+import { site } from '../config';
 
 const posts = await getCollection('blog');
 const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -23,9 +24,22 @@ const paginatedPosts = sorted.slice(startIndex, startIndex + POSTS_PER_PAGE);
 const currentPageUrl = currentPage > 1 ? `?page=${currentPage}` : '';
 const prevUrl = currentPage > 1 ? `?page=${currentPage - 1}` : '';
 const nextUrl = currentPage < totalPages ? `?page=${currentPage + 1}` : '';
+
+const blogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Ethan Goh Blog',
+  description: 'Thoughts on Security, Infrastructure & Development',
+  url: `${site.ogUrl}blog`,
+  author: {
+    '@type': 'Person',
+    name: 'Ethan Goh',
+  },
+};
 ---
 
 <Layout title="Blog — Ethan Goh">
+  <script type="application/ld+json" set:html={JSON.stringify(blogJsonLd)}></script>
   <section class="section">
     <div class="container">
       <div class="section-heading"><h1 class="display-lg">Blog</h1></div>
