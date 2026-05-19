@@ -242,8 +242,7 @@ A privacy-friendly analytics script (e.g., Plausible or Umami) to track page vie
 **a) Add RSS feed**
 Created `src/pages/rss.xml.astro` that generates an RSS 2.0 feed from the blog content collection. Feed includes all blog posts with title, link, description, pubDate, and guid. Accessible at `/rss.xml`.
 
-**b) Update SVG icons**
-Replaced cliché AI-default icons with less obvious alternatives: shield → bolt (Cybersecurity), cloud → server rack (Infrastructure), lock → fingerprint (Security), layers → terminal (Development). Updated in ProjectCard, featured project sections, and focus area visuals.
+**b) ~~Update SVG icons~~** ✅ Done — Replaced cliché AI-default icons with less obvious alternatives: shield → bolt (Cybersecurity), cloud → server rack (Infrastructure), lock → fingerprint (Security), layers → terminal (Development). Updated in ProjectCard, featured project sections, and focus area visuals.
 
 ---
 
@@ -269,6 +268,6 @@ Replaced cliché AI-default icons with less obvious alternatives: shield → bol
 
 ### Low Impact (Polish)
 15. ~~**No active/pressed button feedback**~~ — only hover states, no `:active` scale ✅ Fixed
-16. **Generic SVG icons** — shield, cloud, lock, layers are common AI icon choices
+16. ~~**Generic SVG icons**~~ — shield, cloud, lock, layers replaced with terminal, server rack, bolt, fingerprint ✅ Fixed
 17. **No favicon in `public/`** — referenced but may not exist
 18. ~~**`section + section` gradient background**~~ — subtle gradient breaks flat aesthetic ✅ Fixed
