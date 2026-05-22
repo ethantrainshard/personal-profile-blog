@@ -10,7 +10,7 @@ interface Props {
 
 const { title, excerpt, slug, date, category, readingTime } = Astro.props;
 
-const categoryClass = category === 'Development' ? 'tag-development' : category === 'Security' ? 'tag-security' : category === 'Infrastructure' ? 'tag-infrastructure' : '';
+const categoryClass = category === 'Development' ? 'tag-development' : category === 'Security' ? 'tag-security' : category === 'Infrastructure' ? 'tag-infrastructure' : category === 'Life Lessons' ? 'tag-lifelessons' : '';
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric',

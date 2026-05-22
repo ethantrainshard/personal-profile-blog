@@ -404,6 +404,10 @@ button {
   color: var(--color-success);
 }
 
+.tag-lifelessons {
+  color: var(--color-link);
+}
+
 /* ============================================
    SECTION HEADING
    ============================================ */
