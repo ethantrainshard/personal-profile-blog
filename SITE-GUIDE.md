@@ -8,6 +8,7 @@ npm run build    # Production build
 npm run preview  # Preview production build locally
 ```
 
+
 ---
 
 ## 1. Site Configuration
