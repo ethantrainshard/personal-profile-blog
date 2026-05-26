@@ -122,7 +122,7 @@ title: 'Post Title'
 excerpt: 'Short summary shown on the blog listing page.'
 date: 2024-07-10            # Publication date (YYYY-MM-DD)
 updated: 2025-03-15         # Optional: last updated date
-category: 'Development'     # Category label (e.g., Development, Security, DevOps)
+category: 'Development'     # Category label (e.g., Development, Security, DevOps, Life Lessons)
 readingTime: '5 min read'   # Optional: displayed reading time
 ---
 ```
