@@ -259,6 +259,33 @@ Deployed via GitHub Actions to GitHub Pages.
 
 Triggers on pushes to `main`. Runs `npm run build` and deploys `dist/` to GitHub Pages.
 
+### Custom Domain (cyberitdad.xyz)
+
+**CNAME file:** `public/CNAME`
+
+The `CNAME` file in `public/` is automatically copied to the build output. It contains the domain name `cyberitdad.xyz`.
+
+#### Setup Steps
+
+1. **Add `CNAME` file** — Already done (`public/CNAME` contains `cyberitdad.xyz`). Commit and push to deploy.
+2. **GitHub Settings** — Go to repo → **Settings** → **Pages** → **Custom domain** → enter `cyberitdad.xyz` → Save.
+3. **DNS Configuration** — Add these records at your domain registrar:
+
+   | Type | Host | Value |
+   |------|------|-------|
+   | `A` | `@` | `185.199.108.153` |
+   | `A` | `@` | `185.199.109.153` |
+   | `A` | `@` | `185.199.110.153` |
+   | `A` | `@` | `185.199.111.153` |
+
+   Or a single `CNAME` record pointing `@` to `<username>.github.io`.
+
+4. **Enforce HTTPS** — After DNS propagates, toggle **Enforce HTTPS** in GitHub Pages settings.
+
+#### Changing the Domain
+
+Edit `public/CNAME` with the new domain, commit, push, then update GitHub Pages settings and DNS accordingly.
+
 ---
 
 ## Cheat Sheet
@@ -278,3 +305,4 @@ Triggers on pushes to `main`. Runs `npm run build` and deploys `dist/` to GitHub
 | Edit experience timeline   | `src/pages/experience.astro`         |
 | Edit about page            | `src/pages/about.astro`              |
 | Edit contact page          | `src/pages/contact.astro`            |
+| Change custom domain       | `public/CNAME` + GitHub Settings     |
