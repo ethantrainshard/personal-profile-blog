@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 const isDeploy = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
-  base: isDeploy ? '/personal-profile-blog' : '/',
+  base: '/',
   outDir: 'dist',
   site: 'https://cyberitdad.xyz',
   markdown: {
