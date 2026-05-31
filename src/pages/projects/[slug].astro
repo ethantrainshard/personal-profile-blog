@@ -23,6 +23,9 @@ export async function getStaticPaths() {
 
 const { title, description, overview, features, techStack, techColors, role, date, githubUrl, liveUrl } = Astro.props;
 
+const overviewHTML = `<p class="body-md">${overview.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />')}</p>`;
+const descriptionHTML = `<p class="body-md">${description.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />')}</p>`;
+
 const creativeWorkJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
@@ -65,7 +68,7 @@ const creativeWorkJsonLd = {
 
       <div class="project-content">
         <h2>Overview</h2>
-        <div dangerouslySetInnerHTML={{ __html: overview.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />') }} />
+        <div set:html={overviewHTML}></div>
 
         <h2>Key Features</h2>
         <ul>
@@ -74,8 +77,8 @@ const creativeWorkJsonLd = {
           ))}
         </ul>
 
-        <h2>Description</h2>
-        <div dangerouslySetInnerHTML={{ __html: description.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />') }} />
+     <h2>Description</h2>
+      <div set:html={descriptionHTML}></div>
 
         <div class="project-links">
           {githubUrl && <Button text="View Source" href={githubUrl} target="_blank" rel="noopener noreferrer" />}
