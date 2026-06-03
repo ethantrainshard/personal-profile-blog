@@ -1,0 +1,26 @@
+---
+title: "Skills Scanner"
+description: "Security scanner that detects malicious commands and dangerous patterns in AI agent skills files"
+date: "June 1 2026"
+techStack: ["Python", "AST Analysis", "Regex", "CLI"]
+techColors: ['var(--color-link)', 'var(--color-success)', 'var(--color-warning)', 'var(--color-success)']
+overview: "Skills files give AI agents permission to run commands and execute code. Skills Scanner addresses this security gap by scanning skills.md files used by AI agentic coding tools (Claude Code, OpenCode, Codex, etc.) for dangerous patterns."
+features: [
+    "Dual-analysis engine: Regex for shell, AST for Python",
+    "10 built-in security rules across 4 severity levels",
+    "Tool detection: identifies installed agentic coding tools",
+    "Auto-scan mode for discovered skill directories",
+    "Colorized terminal reporting and JSON export",
+    "Custom rule support via YAML configuration",
+]
+role: "Lead Developer - designed architecture, regex"
+githubUrl: "https://github.com/ethantrainshard/skill-scanner"
+liveUrl: null
+visualTheme: "security"
+featured: true
+visualTheme: 'vaultguard'
+---
+
+Skills files give AI agents permission to run commands and execute code. Skills Scanner addresses this security gap by scanning skills.md files used by AI agentic coding tools (Claude Code, OpenCode, Codex, etc.) for dangerous patterns.
+
+It uses a dual-analysis approach: RegexAnalyzer for shell/bash code blocks and ASTAnalyzer for Python code blocks, covering 10 built-in rules across four severity levels (LOW, MEDIUM, HIGH, CRITICAL). The scanner detects destructive file operations, remote code execution, reverse shells, subprocess abuse, and unauthorized network calls.
