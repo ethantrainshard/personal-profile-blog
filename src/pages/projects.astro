@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { projectThemes } from '../config';
 
 const projects = await getCollection('projects');
 const featured = projects.find(p => p.data.featured);
@@ -55,24 +56,18 @@ const techColorToClass: Record<string, string> = {
                 </div>
               </div>
             </div>
-            <div class="featured-project-image" aria-hidden="true">
-              <div class:list={['card-image-placeholder', `theme-${featured.data.visualTheme || ''}`, 'card-image-fill']}>
-                {featured.data.visualTheme === 'secureci' && (
-                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                 )}
-                 {featured.data.visualTheme === 'cloudforge' && (
-                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="6" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
-                 )}
-                 {featured.data.visualTheme === 'netsentinel' && (
-                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                 )}
-                 {featured.data.visualTheme === 'vaultguard' && (
-                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10a2 2 0 0 0-2 2c0 1.07.93 2 2 2s2-.93 2-2a2 2 0 0 0-2-2z"/><path d="M12 2a9 9 0 0 0-9 9c0 3.5 2 6.5 5 8.25V22h8v-2.75c3-1.75 5-4.75 5-8.25a9 9 0 0 0-9-9z"/><path d="M12 5a6 6 0 0 0-6 6c0 2.5 1.5 5 4 6.25"/><path d="M12 5a6 6 0 0 1 6 6c0 2.5-1.5 5-4 6.25"/></svg>
-                 )}
-                 {!featured.data.visualTheme && (
-                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                 )}
-              </div>
+           <div class="featured-project-image" aria-hidden="true">
+              {(() => {
+                const themeKey = featured.data.visualTheme && projectThemes[featured.data.visualTheme]
+                  ? featured.data.visualTheme
+                  : 'default';
+                const theme = projectThemes[themeKey];
+                return (
+                  <div class:list={['card-image-placeholder', `theme-${featured.data.visualTheme || ''}`, 'card-image-fill']}>
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={theme.icon}></svg>
+                  </div>
+                );
+              })()}
             </div>
           </a>
         </div>

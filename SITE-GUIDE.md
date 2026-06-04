@@ -202,12 +202,49 @@ liveUrl: 'https://project-demo.com'   # Or null if no live demo
 | `role`       | Yes      | string            | Your role on the project                           |
 | `githubUrl`  | Yes      | string or null    | GitHub repository URL                              |
 | `liveUrl`    | No       | string or null    | Live demo URL (defaults to null)                   |
-| `visualTheme`| No      | string            | Theme identifier for visual styling                |
+| `visualTheme`| No      | string            | Theme identifier — see "Adding a New Visual Theme" |
 | `featured`   | No       | boolean           | Marks project as featured on listing page          |
 
 ### Content Body
 
 Write Markdown content that appears on the individual project detail page. This is supplementary to the frontmatter fields.
+
+### Adding a New Visual Theme
+
+Themes are centralized in `src/config.ts` under `projectThemes`. To add a new theme for a project, edit **two places**:
+
+**1. Register the theme in `src/config.ts`:**
+
+```ts
+export const projectThemes: Record<string, ProjectTheme> = {
+  // ... existing themes ...
+  myproject: {
+    gradient: ['#0a0a0a', '#1a1a2a', '#2a2a4a', '#3a3a6a'],
+    icon: '<path d="M12 2L2 7l10 5 10-5-10-5z"/>',
+  },
+};
+```
+
+- `gradient` — 4-stop color array (dark → slightly lighter)
+- `icon` — inner SVG elements (paths, polylines, etc.) from [Lucide Icons](https://lucide.dev/icons/)
+
+**To grab an icon:** Visit [lucide.dev/icons](https://lucide.dev/icons), click an icon, and copy the inner SVG elements (everything between `<svg>` and `</svg>`).
+
+**2. Add the CSS gradient class in `src/styles/global.css`:**
+
+```css
+.card-image-placeholder.theme-myproject {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2a 30%, #2a2a4a 60%, #3a3a6a 100%);
+}
+```
+
+**3. Use it in your project's MDX frontmatter:**
+
+```yaml
+visualTheme: 'myproject'
+```
+
+Existing themes: `secureci`, `cloudforge`, `netsentinel`, `vaultguard`. Projects without `visualTheme` fall back to the default style.
 
 ---
 
@@ -306,3 +343,4 @@ Edit `public/CNAME` with the new domain, commit, push, then update GitHub Pages 
 | Edit about page            | `src/pages/about.astro`              |
 | Edit contact page          | `src/pages/contact.astro`            |
 | Change custom domain       | `public/CNAME` + GitHub Settings     |
+| Add a visual theme         | `src/config.ts` → `projectThemes` + `src/styles/global.css` |
