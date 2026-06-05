@@ -1,0 +1,186 @@
+---
+title: 'Installing K3s for your Home Server'
+excerpt: 'Steps on installing K3s in your Raspberry Pi home server.'
+date: 2026-06-04
+category: 'DevOps'
+readingTime: '3 min read'
+---
+
+# Running Kubernetes on Raspberry Pi with k3s — The Home Lab Sweet Spot
+
+If you've been running a Raspberry Pi home lab for a while, there comes a point where managing individual services on individual machines starts to feel messy. Things sprawl. Updates break things. Restarting a service means SSHing into the right box and hoping nothing else depends on it. Kubernetes solves all of that — and with k3s, you can run a proper cluster on Raspberry Pis without it eating all your RAM.
+
+This guide walks you through standing up a lightweight Kubernetes cluster across multiple Pis, connecting worker nodes to a master, and controlling the whole thing from your local machine.
+
+---
+
+## Why Kubernetes for a Home Lab?
+
+Running bare services directly on a Pi works fine until it doesn't. Kubernetes gives you something more resilient and more flexible:
+
+**Orchestration without the overhead.** When a service crashes, Kubernetes restarts it automatically. When you want to update an app, you roll it out without downtime. When you want to run multiple services on the same machine without them interfering with each other, containers and namespaces handle the isolation cleanly.
+
+**Scale across your Pis.** Got three or four Pis sitting around? Instead of manually deciding which service runs on which box, Kubernetes schedules workloads across the cluster based on available resources. Add another Pi later and it joins the cluster — your existing apps start using it automatically.
+
+**A real skill to develop.** Kubernetes is the de facto standard for container orchestration in production environments. Running it in your home lab means you're learning the same tooling used at scale — `kubectl`, manifests, services, ingress controllers, persistent volumes. It's not just a toy setup; it's transferable knowledge.
+
+**Centralised management.** Once your kubeconfig is set up on your local machine, you manage every service across every Pi from one terminal window. No more hopping between SSH sessions.
+
+---
+
+## Why k3s Specifically?
+
+Full Kubernetes is resource-hungry. The standard distribution expects nodes with multiple CPU cores and several gigabytes of RAM. Raspberry Pis — even the Pi 5 — have real but limited resources, and throwing full Kubernetes at them wastes headroom you need for actual workloads.
+
+k3s is a certified, production-ready Kubernetes distribution built by Rancher (now part of SUSE) specifically for resource-constrained environments. It strips out legacy features, bundles its own lightweight container runtime, packages the entire control plane into a single binary, and ships with sensible defaults that just work. It's fully compatible with standard Kubernetes tooling — anything you can deploy with `kubectl` on a full cluster, you can deploy on k3s.
+
+For a Raspberry Pi home lab, k3s is the right call. You get real Kubernetes without giving up the resources you need to run your actual services.
+
+---
+
+## What You'll Need
+
+- **Two or more Raspberry Pis** — one will act as the master (control plane) node, the rest as workers. More nodes means more capacity and better resilience.
+- **Ubuntu Server** installed on each Pi — the lightweight server image, not the desktop. This gives you a clean, headless base to work from.
+- **Each Pi on the same local network** — they need to reach each other by IP.
+- **SSH access** to each Pi from your laptop or desktop.
+
+---
+
+## Setting Up the Cluster
+
+### Step 1 — Install k3s on the Master Node
+
+SSH into the first Raspberry Pi — this will be your master node, also called the control plane. It's the Pi that coordinates the cluster, schedules workloads, and exposes the Kubernetes API.
+
+Run the following command to install k3s:
+
+```bash
+curl -sfL https://get.k3s.io | sh -
+```
+
+This pulls the k3s install script from the official source and runs it. It installs the k3s binary, sets up a systemd service so k3s starts automatically on boot, and initialises the cluster. The whole thing takes under a minute.
+
+Once it finishes, verify the master node is up and ready:
+
+```bash
+kubectl get nodes
+```
+
+You should see your Pi listed with a status of `Ready`. That confirms the control plane is running and healthy.
+
+> **Reference:** [k3s Quick Start Documentation](https://docs.k3s.io/quick-start)
+
+---
+
+### Step 2 — Grab the Node Token
+
+Before you leave the master node, you need to retrieve the node token. This is a secret value that k3s uses to authenticate worker nodes when they join the cluster — without it, a rogue Pi can't just attach itself to your cluster.
+
+Read the token file with:
+
+```bash
+cat /var/lib/rancher/k3s/server/node-token
+```
+
+Copy the output. You'll need it in the next step. Keep it somewhere safe — treat it like a password.
+
+---
+
+### Step 3 — Join Worker Nodes to the Cluster
+
+SSH into each of your other Raspberry Pis in turn. On each one, run the following command to install k3s and register it as a worker node:
+
+```bash
+curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+```
+
+Replace `myserver` with the IP address of your master node, and `mynodetoken` with the token you copied in the previous step.
+
+What's happening here: k3s installs on the worker Pi, but instead of initialising a new cluster, the environment variables tell it to connect to an existing one. `K3S_URL` points it at the master's API server, and `K3S_TOKEN` authenticates it. The worker registers itself with the control plane and starts receiving workload assignments.
+
+Repeat this for every additional Pi you want in the cluster.
+
+---
+
+### Step 4 — Verify All Nodes Are Ready
+
+Return to your master node and run:
+
+```bash
+kubectl get nodes
+```
+
+You should now see all your Pis listed — master and workers — each with a status of `Ready`. This confirms the cluster is fully formed and the nodes are communicating correctly. At this point you have a working Kubernetes cluster running across your Pis.
+
+---
+
+### Step 5 — Copy the Kubeconfig to Your Local Machine
+
+Right now, you can only manage the cluster by SSHing into the master node. That works, but it's not ideal — you'd have to SSH in every time you want to deploy something or check on a service. The better approach is to copy the kubeconfig file to your local machine so you can run `kubectl` commands directly from your own terminal.
+
+The kubeconfig file lives at `/etc/rancher/k3s/k3s.yaml` on the master node. It contains the cluster address, authentication credentials, and context information that `kubectl` needs to talk to the API server.
+
+On your local machine, create the kubectl config directory if it doesn't already exist:
+
+```bash
+mkdir -p ~/.kube
+```
+
+Copy the content of `/etc/rancher/k3s/k3s.yaml` from the master node and paste it into `~/.kube/config` on your local machine. Then open the file and find the `server:` field — it will say something like `https://127.0.0.1:6443`. Change that to the actual IP address of your master Pi:
+
+```yaml
+server: https://<master-pi-ip>:6443
+```
+
+This is the critical step. The kubeconfig was written with `127.0.0.1` because it was generated on the master node itself. Your local machine needs the real network address to reach the API server across your LAN.
+
+Verify the connection works by running:
+
+```bash
+kubectl get nodes
+```
+
+If you see your cluster nodes listed from your local terminal, you're connected. You can now manage the entire cluster without SSHing into anything.
+
+---
+
+### Step 6 — Deploy Your First Workload
+
+With the cluster up and kubeconfig in place, you're ready to deploy applications using `kubectl`. From your local machine, you can apply Kubernetes manifests, manage deployments, expose services, and scale workloads — all targeting your Pi cluster over your local network.
+
+As a quick test, try deploying a simple app:
+
+```bash
+kubectl create deployment hello --image=nginx
+kubectl get pods
+```
+
+Within a few seconds you should see the pod scheduled and running on one of your nodes. That's Kubernetes doing its job — deciding where to run the workload and making it happen.
+
+---
+
+## What This Unlocks for Your Home Lab
+
+Once the cluster is running, the range of things you can self-host expands considerably. Kubernetes handles the scheduling, restarts, and resource management so you don't have to. Some popular home lab workloads that run well on a k3s cluster:
+
+- **Pi-hole or AdGuard Home** for network-wide ad blocking, with automatic restarts if the pod crashes
+- **Nextcloud** for self-hosted file storage and sync
+- **Jellyfin or Plex** for media streaming
+- **Home Assistant** for home automation
+- **Grafana + Prometheus** for monitoring your cluster and other services
+- **Traefik** (which k3s includes by default) as an ingress controller for routing traffic to your services
+
+With a proper ingress controller and a few manifests, you can have multiple services running across your Pis, each accessible by name, managed from a single config file, and automatically recovered if anything goes wrong.
+
+---
+
+## Wrapping Up
+
+k3s on Raspberry Pi is one of the most practical home lab setups you can build. It's lightweight enough to run well on the hardware, powerful enough to handle real workloads, and close enough to production Kubernetes that what you learn here is directly applicable elsewhere. The setup is genuinely straightforward — once you've done it once, adding nodes or rebuilding the cluster takes minutes.
+
+From here, the natural next steps are setting up persistent storage (especially worthwhile if your Pis are running off NVMe SSDs), configuring an ingress controller for clean service routing, and exploring Helm for managing more complex app deployments.
+
+---
+
+*Reference: [k3s Quick Start Guide](https://docs.k3s.io/quick-start)*
