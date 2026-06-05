@@ -1,0 +1,125 @@
+---
+title: 'Setting Up Raspberry Pi, Ready for Home Server'
+excerpt: 'Steps on setting up your Raspberry Pi for your home server.'
+date: 2026-06-04
+category: 'DevOps'
+readingTime: '3 min read'
+---
+
+# Boot Your Raspberry Pi 5 from an NVMe SSD — A Home Lab Game Changer
+
+If you have the thought of running your personal home server, you can consider using Raspberry Pi 5. And if you've considered running a Raspberry Pi 5 as a home lab server, there's one upgrade that will make a bigger difference than almost anything else: ditching the microSD card and booting directly from an NVMe SSD. It's faster, more reliable, and opens up your Pi to workloads that a fragile little SD card was never meant to handle.
+
+This guide walks you through the full setup — step by step — so you can get there without the guesswork.
+
+---
+
+## Why NVMe? The Case for Faster Storage on a Home Lab Pi
+
+MicroSD cards have always been the path of least resistance for Raspberry Pi users. They're cheap, small, and easy to flash. But if you're using your Pi 5 as a home lab server — running services like Pi-hole, Nextcloud, Home Assistant, Jellyfin, or a Docker stack — you'll hit the limits of SD storage quickly. Here's why NVMe changes the game:
+
+**Raw speed.** A typical microSD card tops out at around 90 MB/s read speeds under ideal conditions. An NVMe SSD connected to the Pi 5's PCIe 2.0 interface can reach 400–900 MB/s. That's a 5–10× improvement that you'll feel in every boot, every package install, and every container spin-up.
+
+**Reliability.** MicroSD cards are notorious for corruption, especially under the kind of constant read/write workloads a server produces. NVMe drives are designed for sustained, heavy I/O — they'll outlast any SD card in a server role by a wide margin.
+
+**Capacity.** Need to self-host a media server? Store backups? Run a database? SD cards cap out at practical sizes quickly and become expensive at higher capacities. NVMe SSDs give you cost-effective storage at 500 GB, 1 TB, or beyond.
+
+**Snappier services.** If you're running databases (SQLite, PostgreSQL, MariaDB), Docker containers pulling images, or any service doing regular disk writes, faster storage directly translates to faster response times and a more stable server overall.
+
+For anyone serious about a home lab setup, running your Pi 5 off NVMe isn't optional — it's the foundation.
+
+---
+
+## What You'll Need
+
+Before getting started, gather the following:
+
+- **MicroSD Card + Card Reader** — any capacity works; this is only used temporarily for bootloader setup and won't be needed once you're done
+- **NVMe SSD + Adaptor/USB Reader** — an M.2 NVMe drive; check that it's compatible with your HAT before buying
+- **Raspberry Pi 5** — connected to a power supply, monitor, and with an NVMe HAT already attached
+- **Raspberry Pi Imager** — the free official tool, installed on your laptop or desktop ([download here](https://www.raspberrypi.com/software/))
+
+---
+
+## How This Works — The Big Picture
+
+The Raspberry Pi 5 doesn't know to boot from an NVMe drive out of the box. By default, it checks the microSD slot first. So before anything else, we need to reprogram the Pi's bootloader — a tiny piece of firmware stored in the Pi's EEPROM chip — to tell it: *check for NVMe first.*
+
+This is a two-phase process:
+
+1. Flash a temporary bootloader config image to an SD card, run it on the Pi to update the EEPROM, then discard the SD card.
+2. Flash your actual OS onto the NVMe SSD and boot from it directly.
+
+Once phase one is done, it's permanent — the Pi remembers the new boot order even without power. You only need to do this once.
+
+---
+
+## Step-by-Step Setup
+
+### Step 1 — Flash the SD Card with the NVMe Bootloader
+
+Open **Raspberry Pi Imager** on your laptop and configure it with these settings:
+
+- **Device:** Raspberry Pi 5
+- **OS:** Misc Utility Images → Bootloader (Pi 5 Family) → NVMe/USB Boot
+- **Storage:** your microSD card
+
+Hit Write and let the Imager complete. This is not a regular operating system — it's a lightweight image whose sole job is to update the Pi's EEPROM bootloader so it knows to look at the NVMe slot first on startup.
+
+> **Tip:** Double-check that you've selected your SD card as the storage target, not your laptop's internal drive.
+
+---
+
+### Step 2 — Insert the SD Card into the Raspberry Pi
+
+Once the Imager finishes writing and verifying, safely eject the SD card from your laptop and slot it into the Raspberry Pi 5's microSD port on the underside of the board.
+
+---
+
+### Step 3 — Power Up and Connect to a Monitor
+
+Connect your Pi to a monitor via HDMI, then power it on. You'll see the Pi boot from the SD card and run through the bootloader update process on screen. The Pi is reprogramming its own EEPROM using the image you just flashed — this only takes a minute or so.
+
+> **Note:** A monitor is essential here so you can confirm the process completes successfully. Don't skip it or try to run this headless.
+
+---
+
+### Step 4 — Wait for the Green Screen, Then Power Off
+
+When the screen turns solid **green**, the bootloader has been successfully written. That's your confirmation. The Pi's EEPROM now knows to check for an NVMe drive (and USB) before falling back to the SD card slot.
+
+Power off the Pi and remove the SD card. You won't need it again.
+
+---
+
+### Step 5 — Flash Your OS onto the NVMe SSD
+
+Connect your NVMe SSD to your laptop using the USB adaptor/reader. Open Raspberry Pi Imager again — this time, choose the OS you actually want to run (Raspberry Pi OS 64-bit is a solid choice for most home lab use cases) and select your NVMe SSD as the storage target.
+
+Write the image and let it complete. Once done, unplug the SSD from your laptop and seat it into the NVMe HAT slot on the Raspberry Pi.
+
+---
+
+### Step 6 — Power Up — You're Booting from NVMe
+
+Power on your Raspberry Pi. It will now automatically detect the NVMe SSD and boot directly from it. No SD card needed, no extra configuration. You'll land in the OS you just flashed — faster, more resilient, and ready to run whatever you throw at it.
+
+To verify the speed improvement yourself, run this in the terminal once you're in:
+
+```bash
+sudo hdparm -tT /dev/nvme0n1
+```
+
+Compare those numbers against a typical SD card benchmark and the difference will speak for itself.
+
+---
+
+## Wrapping Up
+
+The two-phase approach — bootloader first, OS second — is the key to making this work cleanly. Once the Pi's EEPROM is updated, the new boot order sticks permanently and the whole process is invisible from that point on.
+
+For home lab use, this upgrade transforms what the Pi 5 is capable of. Services start faster, storage is dependable under load, and you've got room to grow your setup without hitting a capacity ceiling. It's one of those changes that's hard to go back from once you've done it.
+
+---
+
+*Credits: Tutorial originally demonstrated by [Martin Cerven on YouTube](https://youtu.be/3FPWzyklF-g?si=qf7kms1YfRkbWYkP). Well worth a watch if you prefer a video walkthrough alongside this written guide.*
