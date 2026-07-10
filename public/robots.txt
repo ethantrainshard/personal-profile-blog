@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cyberitdad.xyz/sitemap.xml
+Sitemap: https://ethantrainshard.github.io/personal-profile-blog/sitemap.xml

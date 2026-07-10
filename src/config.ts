@@ -2,7 +2,7 @@ export const site = {
   title: 'Ethan Goh',
   defaultDescription:
     'Personal profile and blog of Ethan Goh — software development, cybersecurity, and infrastructure.',
-  ogUrl: 'https://cyberitdad.xyz/',
+  ogUrl: 'https://ethantrainshard.github.io/personal-profile-blog/',
 };
 
 export const navLinks = [

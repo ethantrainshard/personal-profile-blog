@@ -4,9 +4,9 @@ import mdx from '@astrojs/mdx';
 const isDeploy = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
-  base: '/',
+  base: '/personal-profile-blog',
   outDir: 'dist',
-  site: 'https://cyberitdad.xyz',
+  site: 'https://ethantrainshard.github.io/personal-profile-blog',
   markdown: {
     shikiConfig: {
       theme: 'dracula',
