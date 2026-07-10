@@ -4,6 +4,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { projectThemes } from '../config';
 
+const base = import.meta.env.BASE_URL.trimEnd('/');
 const projects = await getCollection('projects');
 const featured = projects.find(p => p.data.featured);
 const nonFeatured = projects.filter(p => !p.data.featured);
@@ -26,7 +27,7 @@ const techColorToClass: Record<string, string> = {
         <div class="featured-project-wrapper">
           <p class="caption-uppercase featured-section-title">Featured Project</p>
           <a
-            href={`/projects/${featured.slug}`}
+            href={`${base}/projects/${featured.slug}`}
             class:list={['featured-project', 'cursor-pointer', 'focus-visible-pointer']}
             aria-label={`View project: ${featured.data.title}`}
           >

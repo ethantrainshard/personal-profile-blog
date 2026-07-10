@@ -16,6 +16,7 @@ const focusDescriptions = [
 
 const allProjects = await getCollection('projects');
 const featuredProject = allProjects.find(p => p.data.featured);
+const base = import.meta.env.BASE_URL.trimEnd('/');
 
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -39,8 +40,8 @@ const techColorToClass: Record<string, string> = {
         Building secure, scalable systems from code to cloud. Specializing in software development, cybersecurity, and infrastructure deployment.
       </p>
       <div class="hero-band-cta">
-        <Button text="View Projects" href="/projects" />
-        <Button text="Read Blog" href="/blog" variant="secondary" />
+      <Button text="View Projects" href={`${base}/projects`} />
+         <Button text="Read Blog" href={`${base}/blog`} variant="secondary" />
       </div>
     </div>
     <div class="scroll-indicator" aria-hidden="true">
@@ -86,7 +87,7 @@ const techColorToClass: Record<string, string> = {
       <div class="container">
         <div class="grid-3">
           {focusAreas.map((area, i) => (
-            <a href={area.href} class:list={['focus-column', 'animate-on-scroll', `animate-delay-${i}`]} aria-label={`Learn more about ${area.label}`}>
+            <a href={`${base}${area.href}`} class:list={['focus-column', 'animate-on-scroll', `animate-delay-${i}`]} aria-label={`Learn more about ${area.label}`}>
               <div class:list={['focus-glow', glowColorClasses[i]]}></div>
               <h2 class:list={['title-md', focusColorClasses[i]]}>{area.label}</h2>
               <p class="body-md">{focusDescriptions[i]}</p>
@@ -103,7 +104,7 @@ const techColorToClass: Record<string, string> = {
         <div class="section-heading"><h2 class="display-lg">Featured Project</h2></div>
         <div class="featured-project-wrapper">
         {featuredProject && (
-          <a href={`/projects/${featuredProject.slug}`} class:list={['featured-project', 'cursor-pointer', 'focus-visible-pointer']} aria-label={`View project: ${featuredProject.data.title}`}>
+          <a href={`${base}/projects/${featuredProject.slug}`} class:list={['featured-project', 'cursor-pointer', 'focus-visible-pointer']} aria-label={`View project: ${featuredProject.data.title}`}>
             <div class="featured-project-content">
               <h3 class="display-md featured-project-title">{featuredProject.data.title}</h3>
               <p class="body-lg featured-project-description">{featuredProject.data.description}</p>
@@ -130,7 +131,7 @@ const techColorToClass: Record<string, string> = {
         )}
         </div>
         <div class="section-link-wrapper">
-          <a href="/projects" class="section-link">View All Projects</a>
+          <a href={`${base}/projects`} class="section-link">View All Projects</a>
         </div>
       </div>
     </section>
@@ -155,7 +156,7 @@ const techColorToClass: Record<string, string> = {
         </div>
 
         <div class="section-link-wrapper">
-          <a href="/blog" class="section-link">Read More Posts</a>
+          <a href={`${base}/blog`} class="section-link">Read More Posts</a>
         </div>
       </div>
     </section>
@@ -168,7 +169,7 @@ const techColorToClass: Record<string, string> = {
         <p class="body-lg cta-band-body">
           Have a project in mind? I'd love to hear about it.
         </p>
-        <Button text="Get in Touch" href="/contact" />
+        <Button text="Get in Touch" href={`${base}/contact`} />
       </div>
     </section>
   </ScrollReveal>

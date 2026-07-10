@@ -2,6 +2,7 @@
 import { navLinks, socialLinks, focusAreas } from '../config';
 
 const currentYear = new Date().getFullYear();
+const base = import.meta.env.BASE_URL.trimEnd('/');
 ---
 
 <footer class="footer">
@@ -11,7 +12,7 @@ const currentYear = new Date().getFullYear();
         <h3 class="footer-heading">Navigation</h3>
         <ul class="footer-links">
           {navLinks.map(link => (
-            <li><a href={link.href} class="footer-link">{link.label}</a></li>
+            <li><a href={`${base}${link.href}`} class="footer-link">{link.label}</a></li>
           ))}
         </ul>
       </div>
@@ -36,7 +37,7 @@ const currentYear = new Date().getFullYear();
         <h3 class="footer-heading">Focus Areas</h3>
         <ul class="footer-links">
           {focusAreas.map(area => (
-            <li><a href={area.href} class="footer-link">{area.label}</a></li>
+            <li><a href={`${base}${area.href}`} class="footer-link">{area.label}</a></li>
           ))}
         </ul>
       </div>
@@ -45,8 +46,8 @@ const currentYear = new Date().getFullYear();
     <div class="footer-bottom">
       <p class="footer-copyright">Copyright {currentYear} Ethan Goh. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="/legal#privacy" class="footer-link">Privacy</a>
-        <a href="/legal#terms" class="footer-link">Terms</a>
+        <a href={`${base}/legal#privacy`} class="footer-link">Privacy</a>
+        <a href={`${base}/legal#terms`} class="footer-link">Terms</a>
       </div>
     </div>
   </div>

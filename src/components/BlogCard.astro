@@ -10,6 +10,8 @@ interface Props {
 
 const { title, excerpt, slug, date, category, readingTime } = Astro.props;
 
+const base = import.meta.env.BASE_URL.trimEnd('/');
+
 const categoryClass = category === 'Development' ? 'tag-development' : category === 'Security' ? 'tag-security' : category === 'Infrastructure' ? 'tag-infrastructure' : category === 'Life Lessons' ? 'tag-lifelessons' : '';
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -19,7 +21,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 });
 ---
 
-<a href={`/blog/${slug}`} class="card-link">
+<a href={`${base}/blog/${slug}`} class="card-link">
   <div class="card">
     <div class="card-meta-row">
       <span class="tag {categoryClass}">{category}</span>

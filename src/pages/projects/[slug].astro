@@ -22,6 +22,7 @@ export async function getStaticPaths() {
 }
 
 const { title, description, overview, features, techStack, techColors, role, date, githubUrl, liveUrl } = Astro.props;
+const base = import.meta.env.BASE_URL.trimEnd('/');
 
 const overviewHTML = `<p class="body-md">${overview.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />')}</p>`;
 const descriptionHTML = `<p class="body-md">${description.replace(/\n\n/g, '</p><p class="body-md">').replace(/\n/g, '<br />')}</p>`;
@@ -41,10 +42,10 @@ const creativeWorkJsonLd = {
 ---
 
 <Layout title={`${title} — Ethan Goh`}>
-  <script type="application/ld+json" set:html={JSON.stringify(creativeWorkJsonLd)}></script>
-  <section class="section">
-    <div class="container">
-      <a href="/projects" class="nav-link page-back-link">← Back to Projects</a>
+   <script type="application/ld+json" set:html={JSON.stringify(creativeWorkJsonLd)}></script>
+   <section class="section">
+     <div class="container">
+       <a href={`${base}/projects`} class="nav-link page-back-link">← Back to Projects</a>
 
       <div class="section-heading"><h1 class="display-lg">{title}</h1></div>
       <div class="flex-row-wrap">
