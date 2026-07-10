@@ -1,0 +1,65 @@
+---
+title: 'Deploying Twingate Zero-Trust Access to Kubernetes on Home Lab'
+excerpt: 'How I replaced VPN with Twingate to securely access my home Kubernetes cluster from anywhere using zero-trust architecture.'
+date: 2026-07-10
+category: 'DevOps'
+readingTime: '6 min read'
+---
+
+## Ditch the VPN: Getting Twingate Working in Your Kubernetes Cluster
+
+Let's be honest — VPNs are the worst. You know the drill: connect to the VPN, wait for it to load, hope it doesn't drop mid-deploy, all just to reach a staging API or an internal dashboard. And once you're in? You've basically got the keys to the whole kingdom.
+Kubernetes was supposed to make things easier. And sure, it solved a lot of problems — but secure access to your cluster workloads isn't one of them. Not out of the box, anyway.
+
+That's where Twingate comes in. This post walks through getting Twingate set up in your Kubernetes cluster so you can stop relying on a VPN and start actually controlling who can reach what.
+
+## Why You Should Care About This
+
+Here's the thing: a VPN trusts the network. Once you're connected, you can roam anywhere inside it. That's… not great. Twingate takes a completely different approach called a Software-Defined Perimeter (SDP). Instead of trusting the network, it verifies every single access request against three things: identity, device posture, and context.
+
+Think of it like a bouncer who checks your ID, your ticket, and whether you're actually on the guest list — every single time you try to enter. No connection is assumed safe by default, and access is scoped to exactly the application you need. A contractor updating one microservice won't accidentally stumble on your admin dashboard. That's the dream, right?
+
+## Getting Started
+
+You'll need two things before diving in: a Twingate Admin Console account (free tier works fine to start) and a running Kubernetes cluster. From the Admin Console, grab your API key (make sure it has Read/Write/Provision scope) and your Remote Network ID.
+
+### Install the Operator
+
+The whole thing is driven by a Helm chart. Run this:
+
+``` bash
+  helm upgrade twop oci://ghcr.io/twingate/helmcharts/twingate-operator \
+  --install --wait \
+  -n twingate \
+  -f ./twingate-values.yaml
+```
+
+Your twingate-values.yaml holds your API key, network name, and Remote Network ID. Heads up — this file has real credentials in it, so it's gitignored on purpose. There's a twingate-values-sample.yaml checked in as a placeholder so you have a template to work from.
+
+### Set Up the Connector
+
+The connector is what links your cluster to Twingate Cloud. Drop in a TwingateConnector manifest and the operator does the rest. The one included in this repo has an auto-update policy that refreshes the connector image daily — no manual babysitting needed:
+
+``` yaml
+  spec:
+    imagePolicy:
+      schedule: "0 0 * * *"
+```
+
+### Expose Your Services
+
+Once the operator is running, you have two ways to make your services accessible through Twingate:
+
+- Easy mode: Just slap an annotation on a Kubernetes Service. The kubernetes-access-gateway subchart handles the rest, and your service shows up in the Twingate Admin Console.
+- Full control mode: Use TwingateResourceAccess and TwingateGroup custom resources to declaratively define who can reach what — all in YAML files under version control.
+
+## The Small But Important Security Detail
+
+Your production credentials live in twingate-values.yaml. This file should never be committed to Git. The .gitignore handles this automatically, but it's worth double-checking. The sample file uses placeholder values — swap those out with your real credentials locally and you're good.
+
+## That's It, Really
+
+Twingate replaces the VPN bottleneck with identity-aware, application-scoped access — all natively managed from within Kubernetes. The operator handles lifecycle, the connector auto-updates, and your access policies live in version-controlled manifests.
+No more VPN troubleshooting at 9 AM. No more "everyone has access to everything." Just a clean, declarative setup that actually respects the zero-trust model.
+
+For the deployment files that I have used: [Twingate](https://github.com/ethantrainshard/twingate)
