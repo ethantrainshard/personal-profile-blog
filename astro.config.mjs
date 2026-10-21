@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   outDir: 'dist',
-  site: 'https://cyberitdad.xyz',
+  site: 'https://pages.cyberitdad.xyz',
   markdown: {
     shikiConfig: {
       theme: 'dracula',
