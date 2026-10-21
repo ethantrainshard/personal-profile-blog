@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content';
 
 export async function GET() {
-  const site = 'https://ethantrainshard.github.io/personal-profile-blog';
+  const site = import.meta.env.SITE;
 
   const posts = await getCollection('blog');
   const projects = await getCollection('projects');

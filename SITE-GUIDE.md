@@ -273,8 +273,8 @@ To add a new static page, create a `.astro` file in `src/pages/` and add a nav l
 
 ```mjs
 export default defineConfig({
-  base: isDeploy ? '/personal-profile-blog' : '/',  // Base path (auto-set for GitHub Pages)
   outDir: 'dist',                                    // Build output directory
+  site: 'https://cyberitdad.xyz',                    // Canonical site URL (used by sitemap, SEO)
   markdown: {
     shikiConfig: {
       theme: 'dracula',                              // Code block syntax highlighting theme
@@ -284,44 +284,38 @@ export default defineConfig({
 });
 ```
 
-Change `theme` to any Shiki theme. Change `base` if deploying to a different path.
+Change `theme` to any Shiki theme. If the site ever moves to a subpath (not expected on Cloudflare Pages), set `base` — and note that `import.meta.env.BASE_URL` already omits a trailing slash only for non-root bases, which is why components derive `base` via `.replace(/\/$/, '')` rather than `.trimEnd('/')` (which takes no argument in standard JS and silently does nothing).
 
 ---
 
 ## 6. Deployment
 
-Deployed via GitHub Actions to GitHub Pages.
+Deployed to **Cloudflare Pages** (custom domain: `cyberitdad.xyz`).
 
-**Workflow file:** `.github/workflows/deploy.yml`
+**Build settings** (Cloudflare dashboard → your Pages project → Settings → Build & deployments):
 
-Triggers on pushes to `main`. Runs `npm run build` and deploys `dist/` to GitHub Pages.
+- Build command: `npm run build`
+- Output directory: `dist`
+- Node.js version: 20+
+
+Cloudflare builds automatically on every push to `main`. Pull requests get a preview deployment URL.
+
+### Environment Variables
+
+`PUBLIC_FORMSPREE_FORM_ID` — set in the Cloudflare dashboard (Build & deployments → Environment variables). It is inlined at build time and used by `src/pages/contact.astro`.
 
 ### Custom Domain (cyberitdad.xyz)
 
-**CNAME file:** `public/CNAME`
+Managed in the Cloudflare dashboard (Pages project → Custom domains tab). There is **no `CNAME` file in the repo** — Cloudflare Pages does not use one; the dashboard creates the DNS record and issues the SSL certificate automatically.
 
-The `CNAME` file in `public/` is automatically copied to the build output. It contains the domain name `cyberitdad.xyz`.
+- If the `cyberitdad.xyz` zone is hosted on Cloudflare: the CNAME is added automatically.
+- If hosted elsewhere: point a CNAME record for `cyberitdad.xyz` at `<project>.pages.dev` at the registrar.
 
-#### Setup Steps
-
-1. **Add `CNAME` file** — Already done (`public/CNAME` contains `cyberitdad.xyz`). Commit and push to deploy.
-2. **GitHub Settings** — Go to repo → **Settings** → **Pages** → **Custom domain** → enter `cyberitdad.xyz` → Save.
-3. **DNS Configuration** — Add these records at your domain registrar:
-
-   | Type | Host | Value |
-   |------|------|-------|
-   | `A` | `@` | `185.199.108.153` |
-   | `A` | `@` | `185.199.109.153` |
-   | `A` | `@` | `185.199.110.153` |
-   | `A` | `@` | `185.199.111.153` |
-
-   Or a single `CNAME` record pointing `@` to `<username>.github.io`.
-
-4. **Enforce HTTPS** — After DNS propagates, toggle **Enforce HTTPS** in GitHub Pages settings.
+Keep the MX record for `info@cyberitdad.xyz` intact — the site's CNAME does not affect email.
 
 #### Changing the Domain
 
-Edit `public/CNAME` with the new domain, commit, push, then update GitHub Pages settings and DNS accordingly.
+Remove the old domain and add the new one in the Pages project's Custom domains tab, and update `site` in `astro.config.mjs` (the sitemap, `ogUrl`, and `robots.txt` should match the new domain).
 
 ---
 
@@ -342,5 +336,5 @@ Edit `public/CNAME` with the new domain, commit, push, then update GitHub Pages 
 | Edit experience timeline   | `src/pages/experience.astro`         |
 | Edit about page            | `src/pages/about.astro`              |
 | Edit contact page          | `src/pages/contact.astro`            |
-| Change custom domain       | `public/CNAME` + GitHub Settings     |
+| Change custom domain       | Cloudflare Pages dashboard → Custom domains |
 | Add a visual theme         | `src/config.ts` → `projectThemes` + `src/styles/global.css` |

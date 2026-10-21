@@ -1,7 +1,7 @@
 ---
 import { projectThemes } from '../config';
 
-const base = import.meta.env.BASE_URL.trimEnd('/');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 interface Props {
   title: string;
